@@ -23,16 +23,16 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
+        /* get description of all app classes */
         ObservableList<ClassDescription> classList = getClassList();
         primaryStage.setTitle("Communication devices editor");
-
+        // define editor table of classes description
         ListView<ClassDescription> objectListView = new ListView<>();
         objectListView.setOrientation(Orientation.VERTICAL);
 
         Label labelSelectClass = new Label("Select class: ");
         labelSelectClass.setPadding(new Insets(15));
-
+        /* define choice box that contains from app classes description */
         ChoiceBox<ClassDescription> selectClass = new ChoiceBox<>(classList);
 
         BorderPane topNavigation = new BorderPane();
@@ -61,11 +61,12 @@ public class MainWindow extends Application {
         HBox.setMargin(removeButton, buttonMargin);
 
         bottomNavigation.getChildren().addAll(addButton, editButton, removeButton);
-
+        /* united all window components */
         VBox vBox = new VBox();
         vBox.getChildren().add(topNavigation);
         vBox.getChildren().add(objectListView);
         vBox.getChildren().add(bottomNavigation);
+        /* view window */
         Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
         primaryStage.show();

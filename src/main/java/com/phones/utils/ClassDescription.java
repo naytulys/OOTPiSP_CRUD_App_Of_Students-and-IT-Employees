@@ -36,4 +36,9 @@ public class ClassDescription {
     public Object getObject_For_Description() {
         return object_For_Description;
     }
+
+    @Override
+    public String toString() {
+        return getLocalName();
+    }
 }

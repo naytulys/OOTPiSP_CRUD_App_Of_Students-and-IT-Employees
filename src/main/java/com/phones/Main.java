@@ -19,6 +19,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        /* united description for all app classes into one list */
         classList = FXCollections.observableArrayList();
         classList.addAll(
                 new ClassDescription(SmartPhone.class),
@@ -27,6 +28,7 @@ public class Main {
                 new ClassDescription(WiredPhone.class),
                 new ClassDescription(Transmitter.class)
         );
+        /* launch main window of this app */
         MainWindow.mainWindow(args);
     }
 
