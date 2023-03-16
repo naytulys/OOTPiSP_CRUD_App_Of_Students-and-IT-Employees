@@ -5,6 +5,7 @@ import com.phones.phones.mobilePhones.CellPhone;
 import com.phones.phones.mobilePhones.SmartPhone;
 import com.phones.phones.stationaryPhones.RadioPhone;
 import com.phones.phones.stationaryPhones.WiredPhone;
+import com.phones.ui.MainWindow;
 import com.phones.utils.ClassDescription;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +27,7 @@ public class Main {
                 new ClassDescription(WiredPhone.class),
                 new ClassDescription(Transmitter.class)
         );
-        // run mainWindow with args
+        MainWindow.mainWindow(args);
     }
 
 }
