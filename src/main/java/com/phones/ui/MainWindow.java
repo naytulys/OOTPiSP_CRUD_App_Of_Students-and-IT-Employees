@@ -48,20 +48,23 @@ public class MainWindow extends Application {
         Button removeButton = new Button("Remove");
         Insets buttonMargin = new Insets(15);
         Insets buttonPadding = new Insets(10, 20, 10, 20);
-
+        /*
+        * get value from choice box to avoid nullPointerException
+        * */
+        Class<?> selected_Class_Value = selectClass.getValue() != null ? selectClass.getValue().getClass() : null;
         /*
         * set onClick Event for Buttons
         * */
         addButton.setOnAction(actionEvent -> {
-            new AddButtonEvent().onClick(primaryStage, selectClass.getValue().getClass(), objectListView);
+            new AddButtonEvent().onClick(primaryStage, selected_Class_Value, objectListView);
         });
 
         editButton.setOnAction(actionEvent -> {
-            new EditButtonEvent().onClick(primaryStage, selectClass.getValue().getClass(), objectListView);
+            new EditButtonEvent().onClick(primaryStage, selected_Class_Value, objectListView);
         });
 
         removeButton.setOnAction(actionEvent -> {
-            new RemoveButtonEvent().onClick(primaryStage, selectClass.getValue().getClass(), objectListView);
+            new RemoveButtonEvent().onClick(primaryStage, selected_Class_Value, objectListView);
         });
 
         bottomNavigation.setSpacing(5);
