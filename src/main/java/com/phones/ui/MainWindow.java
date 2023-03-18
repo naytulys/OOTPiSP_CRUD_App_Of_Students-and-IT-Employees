@@ -1,5 +1,8 @@
 package com.phones.ui;
 
+import com.phones.ui.events.AddButtonEvent;
+import com.phones.ui.events.EditButtonEvent;
+import com.phones.ui.events.RemoveButtonEvent;
 import com.phones.utils.ClassDescription;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -49,6 +52,17 @@ public class MainWindow extends Application {
         /*
         * set onClick Event for Buttons
         * */
+        addButton.setOnAction(actionEvent -> {
+            new AddButtonEvent().onClick(primaryStage, selectClass.getValue().getClass(), objectListView);
+        });
+
+        editButton.setOnAction(actionEvent -> {
+            new EditButtonEvent().onClick(primaryStage, selectClass.getValue().getClass(), objectListView);
+        });
+
+        removeButton.setOnAction(actionEvent -> {
+            new RemoveButtonEvent().onClick(primaryStage, selectClass.getValue().getClass(), objectListView);
+        });
 
         bottomNavigation.setSpacing(5);
 
