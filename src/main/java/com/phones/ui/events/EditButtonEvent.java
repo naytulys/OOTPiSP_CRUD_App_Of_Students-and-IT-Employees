@@ -10,7 +10,7 @@ public class EditButtonEvent {
         if (selectedItem != null) {
             // open edit window
         } else {
-            // show error message
+            new ShowMessage(parentStage, "Item wasn't selected");
         }
     }
 }

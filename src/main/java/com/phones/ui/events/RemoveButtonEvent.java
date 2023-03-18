@@ -8,7 +8,7 @@ public class RemoveButtonEvent {
     public void onClick(Stage parentStage, Class<?> selectedClass, ListView<ClassDescription> objectListView) {
         boolean is_Removed = objectListView.getItems().remove(objectListView.getSelectionModel().getSelectedItem());
         if (!is_Removed) {
-            // show error message
+            new ShowMessage(parentStage, "Item wasn't selected");
         }
     }
 }
