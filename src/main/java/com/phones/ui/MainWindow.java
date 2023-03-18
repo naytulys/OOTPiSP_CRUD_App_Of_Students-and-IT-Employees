@@ -49,22 +49,25 @@ public class MainWindow extends Application {
         Insets buttonMargin = new Insets(15);
         Insets buttonPadding = new Insets(10, 20, 10, 20);
         /*
-        * get value from choice box to avoid nullPointerException
-        * */
-        Class<?> selected_Class_Value = selectClass.getValue() != null ? selectClass.getValue().getClass() : null;
-        /*
         * set onClick Event for Buttons
+        * Add execute method for add, edit and remove buttons
+        * in choice at program starting selected value equal null
+        * that why all event listener init with selected value equal null
+        * and all time you see when click on button error message
+        * which tell that item is not selected
+        * but now execute method at all clicking on buttons
+        * try to get value from choice box
         * */
         addButton.setOnAction(actionEvent -> {
-            new AddButtonEvent().onClick(primaryStage, selected_Class_Value, objectListView);
+            execute_Add(new AddButtonEvent(), primaryStage, selectClass, objectListView);
         });
 
         editButton.setOnAction(actionEvent -> {
-            new EditButtonEvent().onClick(primaryStage, selected_Class_Value, objectListView);
+            execute_Edit(new EditButtonEvent(), primaryStage, selectClass, objectListView);
         });
 
         removeButton.setOnAction(actionEvent -> {
-            new RemoveButtonEvent().onClick(primaryStage, selected_Class_Value, objectListView);
+            execute_Remove(new RemoveButtonEvent(), primaryStage, selectClass, objectListView);
         });
 
         bottomNavigation.setSpacing(5);
@@ -87,6 +90,36 @@ public class MainWindow extends Application {
         Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void execute_Add(AddButtonEvent ButtonEvent, Stage primaryStage,
+                         ChoiceBox<ClassDescription> selectedClass,
+                         ListView<ClassDescription> objectListView) {
+        Class<?> selected_Class_Value = null;
+        if (selectedClass.getValue() != null) {
+            selected_Class_Value = selectedClass.getValue().getSelected_Class();
+        }
+        ButtonEvent.onClick(primaryStage, selected_Class_Value, objectListView);
+    }
+
+    private void execute_Edit(EditButtonEvent ButtonEvent, Stage primaryStage,
+                             ChoiceBox<ClassDescription> selectedClass,
+                             ListView<ClassDescription> objectListView) {
+        Class<?> selected_Class_Value = null;
+        if (selectedClass.getValue() != null) {
+            selected_Class_Value = selectedClass.getValue().getSelected_Class();
+        }
+        ButtonEvent.onClick(primaryStage, selected_Class_Value, objectListView);
+    }
+
+    private void execute_Remove(RemoveButtonEvent ButtonEvent, Stage primaryStage,
+                              ChoiceBox<ClassDescription> selectedClass,
+                              ListView<ClassDescription> objectListView) {
+        Class<?> selected_Class_Value = null;
+        if (selectedClass.getValue() != null) {
+            selected_Class_Value = selectedClass.getValue().getSelected_Class();
+        }
+        ButtonEvent.onClick(primaryStage, selected_Class_Value, objectListView);
     }
 
 }
