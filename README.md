@@ -1,2 +1,2 @@
 # OOTPiSP_Communication_Devices_CRUD_App
-This repo contains implementation of communication devices CRUD app
+This repo contains template of communication devices CRUD app
