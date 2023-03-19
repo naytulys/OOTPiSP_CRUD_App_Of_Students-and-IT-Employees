@@ -1,6 +1,7 @@
 package com.phones.ui.events;
 
 import com.phones.utils.ClassDescription;
+import com.phones.utils.EditWindow;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
@@ -13,6 +14,7 @@ public class AddButtonEvent implements ButtonEvent {
             ClassDescription newClassObject = new ClassDescription(selectClassObject);
             objectListView.getItems().add(newClassObject);
             // open edit window
+            new EditWindow(parentStage, newClassObject, objectListView);
         }  catch (NullPointerException e) {
             new ShowMessage(parentStage, "Item wasn't selected");
         } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
