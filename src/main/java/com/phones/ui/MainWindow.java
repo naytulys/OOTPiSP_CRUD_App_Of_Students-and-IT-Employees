@@ -1,6 +1,7 @@
 package com.phones.ui;
 
 import com.phones.ui.events.AddButtonEvent;
+import com.phones.ui.events.ButtonEvent;
 import com.phones.ui.events.EditButtonEvent;
 import com.phones.ui.events.RemoveButtonEvent;
 import com.phones.utils.ClassDescription;
@@ -59,15 +60,15 @@ public class MainWindow extends Application {
         * try to get value from choice box
         * */
         addButton.setOnAction(actionEvent -> {
-            execute_Add(new AddButtonEvent(), primaryStage, selectClass, objectListView);
+            execute_ButtonEvent(new AddButtonEvent(), primaryStage, selectClass, objectListView);
         });
 
         editButton.setOnAction(actionEvent -> {
-            execute_Edit(new EditButtonEvent(), primaryStage, selectClass, objectListView);
+            execute_ButtonEvent(new EditButtonEvent(), primaryStage, selectClass, objectListView);
         });
 
         removeButton.setOnAction(actionEvent -> {
-            execute_Remove(new RemoveButtonEvent(), primaryStage, selectClass, objectListView);
+            execute_ButtonEvent(new RemoveButtonEvent(), primaryStage, selectClass, objectListView);
         });
 
         bottomNavigation.setSpacing(5);
@@ -92,29 +93,9 @@ public class MainWindow extends Application {
         primaryStage.show();
     }
 
-    private void execute_Add(AddButtonEvent ButtonEvent, Stage primaryStage,
-                         ChoiceBox<ClassDescription> selectedClass,
-                         ListView<ClassDescription> objectListView) {
-        Class<?> selected_Class_Value = null;
-        if (selectedClass.getValue() != null) {
-            selected_Class_Value = selectedClass.getValue().getSelected_Class();
-        }
-        ButtonEvent.onClick(primaryStage, selected_Class_Value, objectListView);
-    }
-
-    private void execute_Edit(EditButtonEvent ButtonEvent, Stage primaryStage,
-                             ChoiceBox<ClassDescription> selectedClass,
-                             ListView<ClassDescription> objectListView) {
-        Class<?> selected_Class_Value = null;
-        if (selectedClass.getValue() != null) {
-            selected_Class_Value = selectedClass.getValue().getSelected_Class();
-        }
-        ButtonEvent.onClick(primaryStage, selected_Class_Value, objectListView);
-    }
-
-    private void execute_Remove(RemoveButtonEvent ButtonEvent, Stage primaryStage,
-                              ChoiceBox<ClassDescription> selectedClass,
-                              ListView<ClassDescription> objectListView) {
+    private void execute_ButtonEvent(ButtonEvent ButtonEvent, Stage primaryStage,
+                                     ChoiceBox<ClassDescription> selectedClass,
+                                     ListView<ClassDescription> objectListView){
         Class<?> selected_Class_Value = null;
         if (selectedClass.getValue() != null) {
             selected_Class_Value = selectedClass.getValue().getSelected_Class();

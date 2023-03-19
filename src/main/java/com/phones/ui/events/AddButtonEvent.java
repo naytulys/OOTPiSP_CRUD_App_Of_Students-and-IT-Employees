@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class AddButtonEvent {
+public class AddButtonEvent implements ButtonEvent {
     public void onClick(Stage parentStage, Class<?> selectedClass, ListView<ClassDescription> objectListView) {
         try {
             Object selectClassObject = selectedClass.getConstructor().newInstance();
