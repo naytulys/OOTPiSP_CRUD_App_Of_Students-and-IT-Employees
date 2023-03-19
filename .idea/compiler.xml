@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="OOTPiSP_Communication_Devices_CRUD_App" />
+        <module name="OOTPiSP_CRUD_App_Of_Students-and-IT-Employees" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="OOTPiSP_Communication_Devices_CRUD_App" target="0" />
+      <module name="OOTPiSP_CRUD_App_Of_Students-and-IT-Employees" target="0" />
     </bytecodeTargetLevel>
   </component>
 </project>

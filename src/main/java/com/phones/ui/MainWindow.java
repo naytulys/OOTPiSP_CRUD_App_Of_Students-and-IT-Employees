@@ -29,7 +29,7 @@ public class MainWindow extends Application {
     public void start(Stage primaryStage) {
         /* get description of all app classes */
         ObservableList<ClassDescription> classList = getClassList();
-        primaryStage.setTitle("Communication devices editor");
+        primaryStage.setTitle("Students-and-IT-Employees");
         // define editor table of classes description
         ListView<ClassDescription> objectListView = new ListView<>();
         objectListView.setOrientation(Orientation.VERTICAL);
