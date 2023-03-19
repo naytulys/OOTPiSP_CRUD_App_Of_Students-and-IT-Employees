@@ -1,2 +1,2 @@
-# OOTPiSP_Communication_Devices_CRUD_App
-This repo contains template of communication devices CRUD app
+# OOTPiSP_CRUD_App_Of_Students-and-IT-Employees
+Here beem located fully completed OOTPiSP_CRUD_App_Of_Students-and-IT-Employees
