@@ -1,17 +1,13 @@
 package com.phones.utils;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class ExtractFields extends VBox {
@@ -32,7 +28,7 @@ public class ExtractFields extends VBox {
         ArrayList<FieldOptions> fields = new ArrayList<>();
         ArrayList<Node> generatedFields = new ArrayList<>();
         for (FieldOptions field : fields) {
-            if (field.getFieldType() != FieldOptions.FieldType.INNER_CLASS) {
+            if (field.get_Field_User_Interface_Type() != FieldOptions.FieldType.INNER_CLASS) {
                 generatedFields.add(generatePrimitiveField(objectToParse, field));
             }
         }
