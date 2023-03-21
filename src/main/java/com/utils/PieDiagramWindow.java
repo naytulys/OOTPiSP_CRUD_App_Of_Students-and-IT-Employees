@@ -28,7 +28,7 @@ public class PieDiagramWindow extends Stage {
         classTitle.setPadding(new Insets(15));
         container.getChildren().addAll(classTitle, new Separator());
 
-        VBox diagram = getPieDiagram(objectListView, from_Class_To_Classdescription_Map);
+        VBox diagram = new PieDiagramGenerator(objectListView, from_Class_To_Classdescription_Map);
         container.getChildren().add(diagram);
         HBox bottomNavigation = new HBox();
         Button addButton = new Button("Apply");
@@ -44,28 +44,5 @@ public class PieDiagramWindow extends Stage {
         setScene(scene);
 
         showAndWait();
-    }
-
-    private VBox getPieDiagram(ListView<ClassDescription> objectListView, Map<Class<?>, ClassDescription> from_Class_To_Classdescription_Map){
-        VBox vBox = new VBox();
-        PieChart pie_Diagram = new PieChart();
-        for (ClassDescription currentDescription : objectListView.getItems()) {
-            if (from_Class_To_Classdescription_Map.containsKey(currentDescription.getSelected_Class())) {
-                ClassDescription currentEntry = from_Class_To_Classdescription_Map.get(currentDescription.getSelected_Class());
-                int value = currentEntry.getClass_Instance_Count() + 1;
-                currentEntry.setClass_Instance_Count(value);
-                from_Class_To_Classdescription_Map.put(currentDescription.getSelected_Class(), currentEntry);
-            }
-        }
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-        for (Class<?> currentClass : from_Class_To_Classdescription_Map.keySet()){
-            if (from_Class_To_Classdescription_Map.containsKey(currentClass)) {
-                ClassDescription currentEntry = from_Class_To_Classdescription_Map.get(currentClass);
-                pieChartData.add(new PieChart.Data(currentEntry.getLocalName(), currentEntry.getClass_Instance_Count()));
-            }
-        }
-        pie_Diagram.setData(pieChartData);
-        vBox.getChildren().addAll(pie_Diagram);
-        return vBox;
     }
 }
