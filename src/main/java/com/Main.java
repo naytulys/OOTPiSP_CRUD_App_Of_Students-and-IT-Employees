@@ -9,13 +9,9 @@ import javafx.collections.ObservableList;
 
 public class Main {
 
-    private static ObservableList<ClassDescription> classList;
+    private static final ObservableList<ClassDescription> classList;
 
-    public static ObservableList<ClassDescription> getClassList() {
-        return classList;
-    }
-
-    public static void main(String[] args) {
+    static {
         /* united description for all app classes into one list */
         classList = FXCollections.observableArrayList();
         classList.addAll(
@@ -25,6 +21,13 @@ public class Main {
                 new ClassDescription(Manager.class),
                 new ClassDescription(Tester.class)
         );
+    }
+
+    public static ObservableList<ClassDescription> getClassList() {
+        return classList;
+    }
+
+    public static void main(String[] args) {
         /* launch main window of this app */
         MainWindow.mainWindow(args);
     }

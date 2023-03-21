@@ -2,10 +2,7 @@ package com.ui;
 
 import com.Main;
 import com.entities.*;
-import com.ui.events.AddButtonEvent;
-import com.ui.events.ButtonEvent;
-import com.ui.events.EditButtonEvent;
-import com.ui.events.RemoveButtonEvent;
+import com.ui.events.*;
 import com.utils.ClassDescription;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -53,6 +50,7 @@ public class MainWindow extends Application {
         Button addButton = new Button("Add");
         Button editButton = new Button("Edit");
         Button removeButton = new Button("Remove");
+        Button diagramButton = new Button("Diagram");
         Insets buttonMargin = new Insets(15);
         Insets buttonPadding = new Insets(10, 20, 10, 20);
         /*
@@ -77,17 +75,23 @@ public class MainWindow extends Application {
             execute_ButtonEvent(new RemoveButtonEvent(), primaryStage, selectClass, objectListView);
         });
 
+        diagramButton.setOnAction(actionEvent -> {
+            execute_ButtonEvent(new ShowDiagramEvent(), primaryStage, selectClass, objectListView);
+        });
+
         bottomNavigation.setSpacing(5);
 
         addButton.setPadding(buttonPadding);
         editButton.setPadding(buttonPadding);
         removeButton.setPadding(buttonPadding);
+        diagramButton.setPadding(buttonMargin);
 
         HBox.setMargin(addButton, buttonMargin);
         HBox.setMargin(editButton, buttonMargin);
         HBox.setMargin(removeButton, buttonMargin);
+        HBox.setMargin(diagramButton, buttonMargin);
 
-        bottomNavigation.getChildren().addAll(addButton, editButton, removeButton);
+        bottomNavigation.getChildren().addAll(addButton, editButton, removeButton, diagramButton);
         /* united all window components */
         VBox vBox = new VBox();
         vBox.getChildren().add(topNavigation);
