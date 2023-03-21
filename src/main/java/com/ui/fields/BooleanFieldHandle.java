@@ -5,7 +5,7 @@ import javafx.scene.control.CheckBox;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class BooleanFieldHandle {
+public class BooleanFieldHandle implements FieldHandle {
 
     private final CheckBox checkBox;
     private final Object fieldObject;
@@ -28,7 +28,7 @@ public class BooleanFieldHandle {
         });
     }
 
-    private Object getValueFromObject(Object fieldObject) {
+    public Object getValueFromObject(Object fieldObject) {
         try {
             return fieldOptions.getGet().invoke(fieldObject);
         } catch (IllegalAccessException | InvocationTargetException e) {
@@ -37,15 +37,15 @@ public class BooleanFieldHandle {
         return null;
     }
 
-    private void setObjectToElement(Object objectToWrite) {
-        checkBox.setSelected((boolean) objectToWrite);
+    public void setObjectToElement(Object objectToWrite) {
+        checkBox.setSelected(objectToWrite == null ? false :  (boolean) objectToWrite);
     }
 
-    private Object getValueFromElement() {
+    public Object getValueFromElement() {
         return checkBox.isSelected();
     }
 
-    public CheckBox getCheckBox() {
+    public CheckBox getControl() {
         return this.checkBox;
     }
 }

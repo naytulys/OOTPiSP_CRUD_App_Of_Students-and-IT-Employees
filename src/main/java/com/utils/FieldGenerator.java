@@ -2,29 +2,27 @@ package com.utils;
 
 
 import com.ui.fields.BooleanFieldHandle;
+import com.ui.fields.FieldHandle;
 import com.ui.fields.TextFieldHandle;
 import javafx.scene.layout.Pane;
 
 public class FieldGenerator extends Pane {
 
     public FieldGenerator(Object objectToInspect, FieldOptions field) {
-        BooleanFieldHandle booleanFieldHandle = null;
-        TextFieldHandle textFieldHandle = null;
+        FieldHandle newField;
         switch (field.get_Field_User_Interface_Type()) {
             case TEXT:
-                textFieldHandle = new TextFieldHandle(objectToInspect, field);
+                newField = new TextFieldHandle(objectToInspect, field);
                 break;
             case BOOLEAN:
-                booleanFieldHandle = new BooleanFieldHandle(objectToInspect, field);
+                newField = new BooleanFieldHandle(objectToInspect, field);
                 break;
-
+            default:
+                newField = null;
+                break;
         }
-        if (booleanFieldHandle != null) {
-            getChildren().add(booleanFieldHandle.getCheckBox());
+        if (newField != null) {
+            this.getChildren().add(newField.getControl());
         }
-        if (textFieldHandle != null) {
-            getChildren().add(textFieldHandle.getTextField());
-        }
-
     }
 }
