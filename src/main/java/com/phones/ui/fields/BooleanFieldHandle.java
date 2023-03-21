@@ -11,7 +11,6 @@ public class BooleanFieldHandle {
     private final Object fieldObject;
     private final FieldOptions fieldOptions;
 
-
     public BooleanFieldHandle(Object objectToInspect, FieldOptions field) {
         checkBox = new CheckBox();
         this.fieldObject = objectToInspect;

@@ -2,7 +2,8 @@ package com.phones.utils;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,9 +23,9 @@ public class ExtractFields extends VBox {
 
     private ArrayList<Node> generateFields(Object objectToParse) {
         /*
-        * call some parse methods in order to get
-        * description of fields assigned to object
-        * */
+         * call some parse methods in order to get
+         * description of fields assigned to object
+         * */
         ArrayList<FieldOptions> fields = new ArrayList<>();
         ArrayList<Node> generatedFields = new ArrayList<>();
         for (FieldOptions field : fields) {
@@ -41,8 +42,8 @@ public class ExtractFields extends VBox {
         Label textLabel = new Label(field.getFieldName());
         borderPane.setLeft(textLabel);
         /*
-        * call methods to generate object fields
-        * */
+         * call methods to generate object fields
+         * */
         Pane generatedField;
         borderPane.setRight(generatedField);
         BorderPane.setMargin(textLabel, elementInsets);

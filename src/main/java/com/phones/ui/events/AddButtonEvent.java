@@ -15,7 +15,7 @@ public class AddButtonEvent implements ButtonEvent {
             objectListView.getItems().add(newClassObject);
             // open edit window
             new EditWindow(parentStage, newClassObject, objectListView);
-        }  catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             new ShowMessage(parentStage, "Item wasn't selected");
         } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();

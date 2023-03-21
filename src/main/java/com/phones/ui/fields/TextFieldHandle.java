@@ -1,7 +1,6 @@
 package com.phones.ui.fields;
 
 import com.phones.utils.FieldOptions;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
 import java.lang.reflect.InvocationTargetException;
@@ -64,8 +63,7 @@ public class TextFieldHandle {
         Pattern pattern = Pattern.compile(regDate);
         if (pattern.matcher(newValue).matches() && newValue.length() <= MAX_DOUBLE_LENGTH) {
             d.setText(newValue);
-        }
-        else {
+        } else {
             d.setText(oldValue.equals("") ? "0" : oldValue);
         }
     }
@@ -75,8 +73,7 @@ public class TextFieldHandle {
         Pattern pattern = Pattern.compile(regDate);
         if (pattern.matcher(newValue).matches() && newValue.length() <= MAX_INT_LENGTH) {
             d.setText(newValue);
-        }
-        else {
+        } else {
             d.setText(oldValue.equals("") ? "0" : oldValue);
         }
     }
