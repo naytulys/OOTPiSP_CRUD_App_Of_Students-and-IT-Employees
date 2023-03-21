@@ -44,7 +44,7 @@ public class ExtractFields extends VBox {
         /*
          * call methods to generate object fields
          * */
-        Pane generatedField;
+        Pane generatedField = new FieldGenerator(objectToInspect, field);
         borderPane.setRight(generatedField);
         BorderPane.setMargin(textLabel, elementInsets);
         BorderPane.setMargin(generatedField, elementInsets);

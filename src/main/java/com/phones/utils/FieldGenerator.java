@@ -19,12 +19,11 @@ public class FieldGenerator extends Pane {
                 break;
 
         }
-
         if (booleanFieldHandle != null) {
-            getChildren().add(booleanFieldHandle);
+            getChildren().add(booleanFieldHandle.getCheckBox());
         }
         if (textFieldHandle != null) {
-            getChildren().add(textFieldHandle);
+            getChildren().add(textFieldHandle.getTextField());
         }
 
     }
