@@ -9,6 +9,9 @@ public class Student extends Person {
     private String specialisation;
     private int course;
     private String group;
+    private boolean isWorking;
+    private boolean isPayingForStudy;
+
 
     @LocalizedName("University")
     public String getUniversity() {
@@ -35,6 +38,16 @@ public class Student extends Person {
         return group;
     }
 
+    @LocalizedName("Is working")
+    public boolean getIsWorking() {
+        return isWorking;
+    }
+
+    @LocalizedName("Is paying for study")
+    public boolean getIsPayingForStudy() {
+        return isPayingForStudy;
+    }
+
     public void setUniversity(String university) {
         this.university = university;
     }
@@ -54,4 +67,9 @@ public class Student extends Person {
     public void setGroup(String group) {
         this.group = group;
     }
+
+    public void setIsWorking(boolean isWorking){ this.isWorking = isWorking; }
+
+    public void setIsPayingForStudy(boolean isPayingForStudy) { this.isPayingForStudy = isPayingForStudy; }
+
 }

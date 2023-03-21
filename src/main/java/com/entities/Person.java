@@ -9,18 +9,10 @@ public abstract class Person {
         Female;
     }
 
-    public enum Position {
-        Student,
-        Manager,
-        Designer,
-        Programmer,
-        Tester;
-    }
     private String name;
     private String surname;
     private Sex sex;
     private String email;
-    private Position position;
 
     @LocalizedName("Name")
     public String getName() {
@@ -42,11 +34,6 @@ public abstract class Person {
         return email;
     }
 
-    @LocalizedName("Position")
-    public Position getPosition() {
-        return position;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -63,7 +50,4 @@ public abstract class Person {
         this.email = email;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
-    }
 }
