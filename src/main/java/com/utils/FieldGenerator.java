@@ -3,6 +3,7 @@ package com.utils;
 
 import com.ui.fields.BooleanFieldHandle;
 import com.ui.fields.FieldHandle;
+import com.ui.fields.SelectFieldEditor;
 import com.ui.fields.TextFieldHandle;
 import javafx.scene.layout.Pane;
 
@@ -16,6 +17,9 @@ public class FieldGenerator extends Pane {
                 break;
             case BOOLEAN:
                 newField = new BooleanFieldHandle(objectToInspect, field);
+                break;
+            case LIST:
+                newField = new SelectFieldEditor(objectToInspect, field);
                 break;
             default:
                 newField = null;

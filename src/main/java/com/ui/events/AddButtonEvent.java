@@ -9,16 +9,21 @@ import java.lang.reflect.InvocationTargetException;
 
 public class AddButtonEvent implements ButtonEvent {
     public void onClick(Stage parentStage, Class<?> selectedClass, ListView<ClassDescription> objectListView) {
+        if (selectedClass == null) {
+            new ShowMessage(parentStage, "Item wasn't selected");
+            return;
+        }
+        Object selectClassObject = null;
         try {
-            Object selectClassObject = selectedClass.getConstructor().newInstance();
+            selectClassObject = selectedClass.getConstructor().newInstance();
+        } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        if (selectClassObject != null) {
             ClassDescription newClassObject = new ClassDescription(selectClassObject);
             objectListView.getItems().add(newClassObject);
             // open edit window
             new EditWindow(parentStage, newClassObject, objectListView);
-        } catch (NullPointerException e) {
-            new ShowMessage(parentStage, "Item wasn't selected");
-        } catch (InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
         }
     }
 }
