@@ -27,6 +27,8 @@ public class EditWindow extends Stage {
          * here need add call methods that responsible
          * for parsing entities fields
          * */
+        VBox objectFields = new ExtractFields(parentStage, objectToShow.getObject_For_Description(), objectListView);
+        container.getChildren().add(objectFields);
         HBox bottomNavigation = new HBox();
         Button addButton = new Button("Apply");
         addButton.setPadding(new Insets(5, 10, 10, 5));
