@@ -5,6 +5,7 @@ import com.annotations.LocalizedName;
 public class ClassDescription {
     private final Class<?> selected_Class;
     private Object object_For_Description;
+    private int class_Instance_Count;
 
     public void setObject_For_Description(Object object_For_Description) {
         this.object_For_Description = object_For_Description;
@@ -40,5 +41,13 @@ public class ClassDescription {
     @Override
     public String toString() {
         return getLocalName();
+    }
+
+    public int getClass_Instance_Count() {
+        return class_Instance_Count;
+    }
+
+    public void setClass_Instance_Count(int class_Instance_Count) {
+        this.class_Instance_Count = class_Instance_Count;
     }
 }
