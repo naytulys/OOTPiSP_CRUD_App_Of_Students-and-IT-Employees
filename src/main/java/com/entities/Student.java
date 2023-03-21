@@ -68,8 +68,22 @@ public class Student extends Person {
         this.group = group;
     }
 
-    public void setIsWorking(boolean isWorking){ this.isWorking = isWorking; }
+    public void setIsWorking(boolean isWorking) {
+        this.isWorking = isWorking;
+    }
 
-    public void setIsPayingForStudy(boolean isPayingForStudy) { this.isPayingForStudy = isPayingForStudy; }
+    public void setIsPayingForStudy(boolean isPayingForStudy) {
+        this.isPayingForStudy = isPayingForStudy;
+    }
 
+    public Student(String name, String surname, Sex sex, String email, String university, String faculty, String specialisation, int course, String group, boolean isWorking, boolean isPayingForStudy) {
+        super(name, surname, sex, email);
+        this.university = university;
+        this.faculty = faculty;
+        this.specialisation = specialisation;
+        this.course = course;
+        this.group = group;
+        this.isWorking = isWorking;
+        this.isPayingForStudy = isPayingForStudy;
+    }
 }

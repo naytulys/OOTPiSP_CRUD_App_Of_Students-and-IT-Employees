@@ -1,5 +1,7 @@
 package com.ui;
 
+import com.Main;
+import com.entities.*;
 import com.ui.events.AddButtonEvent;
 import com.ui.events.ButtonEvent;
 import com.ui.events.EditButtonEvent;
@@ -18,7 +20,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import com.Main;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class MainWindow extends Application {
@@ -89,6 +93,8 @@ public class MainWindow extends Application {
         vBox.getChildren().add(topNavigation);
         vBox.getChildren().add(objectListView);
         vBox.getChildren().add(bottomNavigation);
+        /* initialize view table*/
+        initialize_CRUD_App_Table(objectListView);
         /* view window */
         Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
@@ -105,5 +111,19 @@ public class MainWindow extends Application {
         ButtonEvent.onClick(primaryStage, selected_Class_Value, objectListView);
     }
 
+    private void initialize_CRUD_App_Table(ListView<ClassDescription> objectListView) {
+        ArrayList<ClassDescription> classDescriptions = new ArrayList<>(
+                Arrays.asList(
+                        new ClassDescription(new Student("Aleksey", "Bobrik", Person.Sex.Male, "bobrik@gmail.com", "BSUIR", "KSIS", "POIT", 2, "151002", false, true)),
+                        new ClassDescription(new Manager("Vadim", "Kragel", Person.Sex.Male, "Kragel@gmail.com", 6000, 20, Employee.Education.Height, 1000)),
+                        new ClassDescription(new Tester("Daria", "Zavaluk", Person.Sex.Female, "zavaluk@gmail.com", 1000, 3, Employee.Education.None, Tester.TestType.Automated)),
+                        new ClassDescription(new Designer("Alena", "Kruegar", Person.Sex.Female, "kruegar@gmail.com", 1500, 6, Employee.Education.Middle, Designer.Designer_Skills.Illustrator, Designer.Designer_Type.Game)),
+                        new ClassDescription(new Programmer("Nikita", "Krashevski", Person.Sex.Male, "nirita.krashevski@gmail.com", 5000, 13, Employee.Education.Height, Programmer.Category.Senior, Programmer.ProgSkills.JAVA))
+                )
+        );
+        objectListView.getItems().addAll(classDescriptions);
+    }
+
 }
+
 

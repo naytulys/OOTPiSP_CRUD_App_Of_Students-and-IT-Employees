@@ -9,6 +9,7 @@ public class Employee extends Person {
         Middle,
         Height;
     }
+
     private double salary;
     private int experience;
     private Education education;
@@ -37,6 +38,13 @@ public class Employee extends Person {
     }
 
     public void setEducation(Education education) {
+        this.education = education;
+    }
+
+    public Employee(String name, String surname, Sex sex, String email, double salary, int experience, Education education) {
+        super(name, surname, sex, email);
+        this.salary = salary;
+        this.experience = experience;
         this.education = education;
     }
 }

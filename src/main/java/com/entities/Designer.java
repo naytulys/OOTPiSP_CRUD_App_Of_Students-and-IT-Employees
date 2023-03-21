@@ -16,6 +16,7 @@ public class Designer extends Employee {
         WEB,
         Graphic;
     }
+
     private Designer_Skills designer_Skills;
     private Designer_Type designer_Type;
 
@@ -34,6 +35,12 @@ public class Designer extends Employee {
     }
 
     public void setDesigner_Type(Designer_Type designer_Type) {
+        this.designer_Type = designer_Type;
+    }
+
+    public Designer(String name, String surname, Sex sex, String email, double salary, int experience, Education education, Designer_Skills designer_Skills, Designer_Type designer_Type) {
+        super(name, surname, sex, email, salary, experience, education);
+        this.designer_Skills = designer_Skills;
         this.designer_Type = designer_Type;
     }
 }
