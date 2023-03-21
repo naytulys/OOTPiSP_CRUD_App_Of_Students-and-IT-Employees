@@ -26,7 +26,7 @@ public class ExtractFields extends VBox {
          * call some parse methods in order to get
          * description of fields assigned to object
          * */
-        ArrayList<FieldOptions> fields = new ArrayList<>();
+        ArrayList<FieldOptions> fields = FieldsParser.parseFields(objectToParse);
         ArrayList<Node> generatedFields = new ArrayList<>();
         for (FieldOptions field : fields) {
             if (field.get_Field_User_Interface_Type() != FieldOptions.FieldType.INNER_CLASS) {
