@@ -41,6 +41,10 @@ public class Employee extends Person {
         this.education = education;
     }
 
+    public Employee(){
+
+    }
+
     public Employee(String name, String surname, Sex sex, String email, double salary, int experience, Education education) {
         super(name, surname, sex, email);
         this.salary = salary;

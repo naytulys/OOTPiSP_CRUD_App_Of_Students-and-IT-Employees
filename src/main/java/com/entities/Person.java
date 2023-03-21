@@ -50,6 +50,10 @@ public abstract class Person {
         this.email = email;
     }
 
+    public Person(){
+
+    }
+
     public Person(String name, String surname, Sex sex, String email) {
         this.name = name;
         this.surname = surname;

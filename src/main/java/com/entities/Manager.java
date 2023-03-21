@@ -15,6 +15,10 @@ public class Manager extends Employee {
         this.bonus = bonus;
     }
 
+    public Manager(){
+
+    }
+
     public Manager(String name, String surname, Sex sex, String email, double salary, int experience, Education education, double bonus) {
         super(name, surname, sex, email, salary, experience, education);
         this.bonus = bonus;

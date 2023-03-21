@@ -37,6 +37,10 @@ public class Programmer extends Employee {
         this.progSkills = progSkills;
     }
 
+    public Programmer(){
+
+    }
+
     public Programmer(String name, String surname, Sex sex, String email, double salary, int experience, Education education, Category category, ProgSkills progSkills) {
         super(name, surname, sex, email, salary, experience, education);
         this.category = category;

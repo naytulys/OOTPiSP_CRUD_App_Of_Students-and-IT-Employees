@@ -76,6 +76,10 @@ public class Student extends Person {
         this.isPayingForStudy = isPayingForStudy;
     }
 
+    public Student(){
+
+    }
+
     public Student(String name, String surname, Sex sex, String email, String university, String faculty, String specialisation, int course, String group, boolean isWorking, boolean isPayingForStudy) {
         super(name, surname, sex, email);
         this.university = university;

@@ -38,6 +38,10 @@ public class Designer extends Employee {
         this.designer_Type = designer_Type;
     }
 
+    public Designer(){
+
+    }
+
     public Designer(String name, String surname, Sex sex, String email, double salary, int experience, Education education, Designer_Skills designer_Skills, Designer_Type designer_Type) {
         super(name, surname, sex, email, salary, experience, education);
         this.designer_Skills = designer_Skills;

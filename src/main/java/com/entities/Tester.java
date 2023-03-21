@@ -20,6 +20,10 @@ public class Tester extends Employee {
         this.testType = testType;
     }
 
+    public Tester(){
+
+    }
+
     public Tester(String name, String surname, Sex sex, String email, double salary, int experience, Education education, TestType testType) {
         super(name, surname, sex, email, salary, experience, education);
         this.testType = testType;
