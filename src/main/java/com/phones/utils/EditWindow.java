@@ -24,9 +24,9 @@ public class EditWindow extends Stage {
         classTitle.setPadding(new Insets(15));
         container.getChildren().addAll(classTitle, new Separator());
         /*
-        * here need add call methods that responsible
-        * for parsing entities fields
-        * */
+         * here need add call methods that responsible
+         * for parsing entities fields
+         * */
         HBox bottomNavigation = new HBox();
         Button addButton = new Button("Apply");
         addButton.setPadding(new Insets(5, 10, 10, 5));

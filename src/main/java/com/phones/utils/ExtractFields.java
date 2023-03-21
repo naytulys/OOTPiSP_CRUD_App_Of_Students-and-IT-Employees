@@ -1,17 +1,14 @@
 package com.phones.utils;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class ExtractFields extends VBox {
@@ -26,13 +23,13 @@ public class ExtractFields extends VBox {
 
     private ArrayList<Node> generateFields(Object objectToParse) {
         /*
-        * call some parse methods in order to get
-        * description of fields assigned to object
-        * */
-        ArrayList<FieldOptions> fields = new ArrayList<>();
+         * call some parse methods in order to get
+         * description of fields assigned to object
+         * */
+        ArrayList<FieldOptions> fields = FieldsParser.parseFields(objectToParse);
         ArrayList<Node> generatedFields = new ArrayList<>();
         for (FieldOptions field : fields) {
-            if (field.getFieldType() != FieldOptions.FieldType.INNER_CLASS) {
+            if (field.get_Field_User_Interface_Type() != FieldOptions.FieldType.INNER_CLASS) {
                 generatedFields.add(generatePrimitiveField(objectToParse, field));
             }
         }
@@ -45,9 +42,9 @@ public class ExtractFields extends VBox {
         Label textLabel = new Label(field.getFieldName());
         borderPane.setLeft(textLabel);
         /*
-        * call methods to generate object fields
-        * */
-        Pane generatedField;
+         * call methods to generate object fields
+         * */
+        Pane generatedField = new FieldGenerator(objectToInspect, field);
         borderPane.setRight(generatedField);
         BorderPane.setMargin(textLabel, elementInsets);
         BorderPane.setMargin(generatedField, elementInsets);

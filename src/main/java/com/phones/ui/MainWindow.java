@@ -10,7 +10,10 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -50,15 +53,15 @@ public class MainWindow extends Application {
         Insets buttonMargin = new Insets(15);
         Insets buttonPadding = new Insets(10, 20, 10, 20);
         /*
-        * set onClick Event for Buttons
-        * Add execute method for add, edit and remove buttons
-        * in choice at program starting selected value equal null
-        * that why all event listener init with selected value equal null
-        * and all time you see when click on button error message
-        * which tell that item is not selected
-        * but now execute method at all clicking on buttons
-        * try to get value from choice box
-        * */
+         * set onClick Event for Buttons
+         * Add execute method for add, edit and remove buttons
+         * in choice at program starting selected value equal null
+         * that why all event listener init with selected value equal null
+         * and all time you see when click on button error message
+         * which tell that item is not selected
+         * but now execute method at all clicking on buttons
+         * try to get value from choice box
+         * */
         addButton.setOnAction(actionEvent -> {
             execute_ButtonEvent(new AddButtonEvent(), primaryStage, selectClass, objectListView);
         });
@@ -95,7 +98,7 @@ public class MainWindow extends Application {
 
     private void execute_ButtonEvent(ButtonEvent ButtonEvent, Stage primaryStage,
                                      ChoiceBox<ClassDescription> selectedClass,
-                                     ListView<ClassDescription> objectListView){
+                                     ListView<ClassDescription> objectListView) {
         Class<?> selected_Class_Value = null;
         if (selectedClass.getValue() != null) {
             selected_Class_Value = selectedClass.getValue().getSelected_Class();
