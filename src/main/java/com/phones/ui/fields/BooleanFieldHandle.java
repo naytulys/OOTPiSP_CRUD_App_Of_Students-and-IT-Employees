@@ -1,6 +1,7 @@
 package com.phones.ui.fields;
 
 import com.phones.utils.FieldOptions;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 
 import java.lang.reflect.InvocationTargetException;
@@ -43,5 +44,9 @@ public class BooleanFieldHandle {
 
     private Object getValueFromElement() {
         return checkBox.isSelected();
+    }
+
+    public CheckBox getCheckBox() {
+        return this.checkBox;
     }
 }

@@ -1,6 +1,7 @@
 package com.phones.ui.fields;
 
 import com.phones.utils.FieldOptions;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
 import java.lang.reflect.InvocationTargetException;
@@ -76,5 +77,9 @@ public class TextFieldHandle {
         } else {
             d.setText(oldValue.equals("") ? "0" : oldValue);
         }
+    }
+
+    public TextField getTextField() {
+        return  this.textField;
     }
 }
