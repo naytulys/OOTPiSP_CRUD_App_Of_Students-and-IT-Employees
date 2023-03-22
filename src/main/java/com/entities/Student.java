@@ -8,7 +8,7 @@ public class Student extends Person {
     private String faculty;
     private String specialisation;
     private int course;
-    private String group;
+    private int group;
     private boolean isWorking;
     private boolean isPayingForStudy;
 
@@ -34,7 +34,7 @@ public class Student extends Person {
     }
 
     @LocalizedName("Group")
-    public String getGroup() {
+    public int getGroup() {
         return group;
     }
 
@@ -64,7 +64,7 @@ public class Student extends Person {
         this.course = course;
     }
 
-    public void setGroup(String group) {
+    public void setGroup(int group) {
         this.group = group;
     }
 
@@ -80,7 +80,7 @@ public class Student extends Person {
 
     }
 
-    public Student(String name, String surname, Sex sex, String email, String university, String faculty, String specialisation, int course, String group, boolean isWorking, boolean isPayingForStudy) {
+    public Student(String name, String surname, Sex sex, String email, String university, String faculty, String specialisation, int course, int group, boolean isWorking, boolean isPayingForStudy) {
         super(name, surname, sex, email);
         this.university = university;
         this.faculty = faculty;

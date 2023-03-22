@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.regex.Pattern;
 
 public class TextFieldHandle implements FieldHandle {
 
@@ -23,11 +24,25 @@ public class TextFieldHandle implements FieldHandle {
         textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
                 if (this.fieldOptions.getFieldClassType().equals(Integer.class)) {
-                    fieldOptions.getSet().invoke(this.fieldObject, Integer.parseInt(newValue.equals("") ? "0" : newValue));
+                    try {
+                        Integer.parseInt(newValue);
+                    }catch (NumberFormatException e){
+                        newValue = oldValue;
+                    }
+                    newValue = newValue.equals("") ? "0" : newValue;
+                    textField.setText(newValue);
+                    fieldOptions.getSet().invoke(this.fieldObject, Integer.parseInt(textField.getText()));
                 } else if (this.fieldOptions.getFieldClassType().equals(Double.class)) {
-                    fieldOptions.getSet().invoke(this.fieldObject, Double.parseDouble(newValue.equals("") ? "0" : newValue));
+                    try {
+                        Double.parseDouble(newValue);
+                    }catch (NumberFormatException e){
+                        newValue = oldValue;
+                    }
+                    newValue = newValue.equals("") ? "0" : newValue;
+                    textField.setText(newValue);
+                    fieldOptions.getSet().invoke(this.fieldObject, Double.parseDouble(textField.getText()));
                 } else {
-                    fieldOptions.getSet().invoke(this.fieldObject, newValue);
+                    fieldOptions.getSet().invoke(this.fieldObject, textField.getText());
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();

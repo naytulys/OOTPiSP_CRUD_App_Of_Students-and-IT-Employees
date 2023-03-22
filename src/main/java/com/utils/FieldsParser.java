@@ -43,13 +43,13 @@ public class FieldsParser {
                 } else {
                     fieldOptions.setSet(method);
                 }
-                if (isNewField) {
-                    fields.put(fieldName, fieldOptions);
-                } else {
-                    classFields.add(fieldOptions);
-                }
+                fields.put(fieldName, fieldOptions);
             }
         }
+        for (String currentName : fields.keySet()){
+            classFields.add(fields.get(currentName));
+        }
+
         return classFields;
     }
 
