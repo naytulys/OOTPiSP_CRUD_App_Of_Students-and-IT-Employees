@@ -32,7 +32,7 @@ public class SelectFieldEditor implements FieldHandle {
                 enumFields.add(new ComboBoxItem(enumValue));
             }
             comboBox.setItems(enumFields);
-            Object ObjectValue = getValueFromObject(this.fieldObject);
+            Object ObjectValue = getValueFromObject();
             setObjectToElement(ObjectValue);
         }
 
@@ -50,13 +50,8 @@ public class SelectFieldEditor implements FieldHandle {
         return comboBox.getValue().enumField;
     }
 
-    public Object getValueFromObject(Object fieldObject) {
-        try {
-            return fieldOptions.getGet().invoke(fieldObject);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Object getValueFromObject() {
+        return this.fieldOptions.getFieldValue();
     }
 
     public void setObjectToElement(Object objectToWrite) {

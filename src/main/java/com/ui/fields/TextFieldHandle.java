@@ -5,7 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.regex.Pattern;
 
 public class TextFieldHandle implements FieldHandle {
 
@@ -18,7 +17,7 @@ public class TextFieldHandle implements FieldHandle {
         this.fieldOptions = field;
         textField = new TextField();
 
-        Object ObjectValue = getValueFromObject(this.fieldObject);
+        Object ObjectValue = getValueFromObject();
         setObjectToElement(ObjectValue);
 
         textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -36,13 +35,8 @@ public class TextFieldHandle implements FieldHandle {
         });
     }
 
-    public Object getValueFromObject(Object fieldObject) {
-        try {
-            return fieldOptions.getGet().invoke(fieldObject);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Object getValueFromObject() {
+        return this.fieldOptions.getFieldValue();
     }
 
     public void setObjectToElement(Object objectToWrite) {
