@@ -96,8 +96,12 @@ public class MainWindow extends Application {
         menuBar.getMenus().add(menuFile);
         MenuItem menuOpen = new MenuItem("Open..");
         MenuItem menuSave = new MenuItem("Save as..");
-        menuOpen.setOnAction(actionEvent -> new ShowMessage(primaryStage, "Add serialize data event"));
-        menuSave.setOnAction(ActionEvent -> new ShowMessage(primaryStage, "Add deserialize data event"));
+        menuOpen.setOnAction(actionEvent -> {
+            execute_ButtonEvent(new DeserializeDataEvent(), primaryStage, selectClass, objectListView);
+        });
+        menuSave.setOnAction(actionEvent -> {
+            execute_ButtonEvent(new SerializeDataEvent(), primaryStage, selectClass, objectListView);
+        });
         menuFile.getItems().add(menuOpen);
         menuFile.getItems().add(menuSave);
 
