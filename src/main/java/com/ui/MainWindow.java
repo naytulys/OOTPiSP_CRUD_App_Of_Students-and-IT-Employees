@@ -118,7 +118,7 @@ public class MainWindow extends Application {
     private void initialize_CRUD_App_Table(ListView<ClassDescription> objectListView) {
         ArrayList<ClassDescription> classDescriptions = new ArrayList<>(
                 Arrays.asList(
-                        new ClassDescription(new Student("Aleksey", "Bobrik", Person.Sex.Male, "bobrik@gmail.com", "BSUIR", "KSIS", "POIT", 2, "151002", false, true)),
+                        new ClassDescription(new Student("Aleksey", "Bobrik", Person.Sex.Male, "bobrik@gmail.com", "BSUIR", "KSIS", "POIT", 2, 151002, false, true)),
                         new ClassDescription(new Manager("Vadim", "Kragel", Person.Sex.Male, "Kragel@gmail.com", 6000, 20, Employee.Education.Height, 1000)),
                         new ClassDescription(new Tester("Daria", "Zavaluk", Person.Sex.Female, "zavaluk@gmail.com", 1000, 3, Employee.Education.None, Tester.TestType.Automated)),
                         new ClassDescription(new Designer("Alena", "Kruegar", Person.Sex.Female, "kruegar@gmail.com", 1500, 6, Employee.Education.Middle, Designer.Designer_Skills.Illustrator, Designer.Designer_Type.Game)),

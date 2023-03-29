@@ -18,17 +18,31 @@ public class TextFieldHandle implements FieldHandle {
         this.fieldOptions = field;
         textField = new TextField();
 
-        Object ObjectValue = getValueFromObject(this.fieldObject);
+        Object ObjectValue = getValueFromObject();
         setObjectToElement(ObjectValue);
 
         textField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
                 if (this.fieldOptions.getFieldClassType().equals(Integer.class)) {
-                    fieldOptions.getSet().invoke(this.fieldObject, Integer.parseInt(newValue.equals("") ? "0" : newValue));
+                    try {
+                        Integer.parseInt(newValue);
+                    }catch (NumberFormatException e){
+                        newValue = oldValue;
+                    }
+                    newValue = newValue.equals("") ? "0" : newValue;
+                    textField.setText(newValue);
+                    fieldOptions.getSet().invoke(this.fieldObject, Integer.parseInt(textField.getText()));
                 } else if (this.fieldOptions.getFieldClassType().equals(Double.class)) {
-                    fieldOptions.getSet().invoke(this.fieldObject, Double.parseDouble(newValue.equals("") ? "0" : newValue));
+                    try {
+                        Double.parseDouble(newValue);
+                    }catch (NumberFormatException e){
+                        newValue = oldValue;
+                    }
+                    newValue = newValue.equals("") ? "0" : newValue;
+                    textField.setText(newValue);
+                    fieldOptions.getSet().invoke(this.fieldObject, Double.parseDouble(textField.getText()));
                 } else {
-                    fieldOptions.getSet().invoke(this.fieldObject, newValue);
+                    fieldOptions.getSet().invoke(this.fieldObject, textField.getText());
                 }
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -36,13 +50,8 @@ public class TextFieldHandle implements FieldHandle {
         });
     }
 
-    public Object getValueFromObject(Object fieldObject) {
-        try {
-            return fieldOptions.getGet().invoke(fieldObject);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Object getValueFromObject() {
+        return this.fieldOptions.getFieldValue();
     }
 
     public void setObjectToElement(Object objectToWrite) {

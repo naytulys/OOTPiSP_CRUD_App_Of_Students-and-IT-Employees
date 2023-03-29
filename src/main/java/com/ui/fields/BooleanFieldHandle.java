@@ -16,7 +16,7 @@ public class BooleanFieldHandle implements FieldHandle {
         this.fieldObject = objectToInspect;
         this.fieldOptions = field;
 
-        Object ObjectValue = getValueFromObject(this.fieldObject);
+        Object ObjectValue = getValueFromObject();
         setObjectToElement(ObjectValue);
 
         checkBox.setOnAction(actionEvent -> {
@@ -28,13 +28,8 @@ public class BooleanFieldHandle implements FieldHandle {
         });
     }
 
-    public Object getValueFromObject(Object fieldObject) {
-        try {
-            return fieldOptions.getGet().invoke(fieldObject);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public Object getValueFromObject() {
+        return this.fieldOptions.getFieldValue();
     }
 
     public void setObjectToElement(Object objectToWrite) {
