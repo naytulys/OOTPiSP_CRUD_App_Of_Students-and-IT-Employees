@@ -9,15 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -92,8 +90,20 @@ public class MainWindow extends Application {
         HBox.setMargin(diagramButton, buttonMargin);
 
         bottomNavigation.getChildren().addAll(addButton, editButton, removeButton, diagramButton);
+        /* Add menuBar for serialize/deserialize data */
+        MenuBar menuBar = new MenuBar();
+        Menu menuFile = new Menu("File");
+        menuBar.getMenus().add(menuFile);
+        MenuItem menuOpen = new MenuItem("Open..");
+        MenuItem menuSave = new MenuItem("Save as..");
+        menuOpen.setOnAction(actionEvent -> new ShowMessage(primaryStage, "Add serialize data event"));
+        menuSave.setOnAction(ActionEvent -> new ShowMessage(primaryStage, "Add deserialize data event"));
+        menuFile.getItems().add(menuOpen);
+        menuFile.getItems().add(menuSave);
+
         /* united all window components */
         VBox vBox = new VBox();
+        vBox.getChildren().add(menuBar);
         vBox.getChildren().add(topNavigation);
         vBox.getChildren().add(objectListView);
         vBox.getChildren().add(bottomNavigation);
