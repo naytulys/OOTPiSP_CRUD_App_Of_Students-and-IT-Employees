@@ -2,19 +2,21 @@ package com.entities;
 
 import com.annotations.LocalizedName;
 
+import java.io.Serializable;
+
 @LocalizedName("Designer")
-public class Designer extends Employee {
+public class Designer extends Employee implements Serializable {
     public enum Designer_Skills {
         HTML,
         CSS,
         Illustrator,
-        InDesign;
+        InDesign
     }
 
     public enum Designer_Type {
         Game,
         WEB,
-        Graphic;
+        Graphic
     }
 
     private Designer_Skills designer_Skills;

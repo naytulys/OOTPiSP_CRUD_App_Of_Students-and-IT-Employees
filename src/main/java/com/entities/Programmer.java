@@ -2,18 +2,20 @@ package com.entities;
 
 import com.annotations.LocalizedName;
 
+import java.io.Serializable;
+
 @LocalizedName("Programmer")
-public class Programmer extends Employee {
+public class Programmer extends Employee implements Serializable {
     public enum Category {
         Junior,
         Middle,
-        Senior;
+        Senior
     }
 
     public enum ProgSkills {
         C,
         JAVA,
-        SWIFT;
+        SWIFT
     }
 
     private Category category;

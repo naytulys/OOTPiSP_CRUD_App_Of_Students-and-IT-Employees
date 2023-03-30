@@ -2,8 +2,10 @@ package com.entities;
 
 import com.annotations.LocalizedName;
 
+import java.io.Serializable;
+
 @LocalizedName("Student")
-public class Student extends Person {
+public class Student extends Person implements Serializable {
     private String university;
     private String faculty;
     private String specialisation;
