@@ -2,11 +2,13 @@ package com.entities;
 
 import com.annotations.LocalizedName;
 
+import java.io.Serializable;
+
 @LocalizedName("Person")
-public abstract class Person {
+public abstract class Person implements Serializable {
     public enum Sex {
         Male,
-        Female;
+        Female
     }
 
     private String name;

@@ -2,12 +2,14 @@ package com.entities;
 
 import com.annotations.LocalizedName;
 
+import java.io.Serializable;
+
 @LocalizedName("Employee")
-public class Employee extends Person {
+public class Employee extends Person implements Serializable {
     public enum Education {
         None,
         Middle,
-        Height;
+        Height
     }
 
     private double salary;

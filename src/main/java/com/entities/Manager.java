@@ -2,8 +2,10 @@ package com.entities;
 
 import com.annotations.LocalizedName;
 
+import java.io.Serializable;
+
 @LocalizedName("Manager")
-public class Manager extends Employee {
+public class Manager extends Employee implements Serializable {
     private double bonus;
 
     @LocalizedName("Bonus")

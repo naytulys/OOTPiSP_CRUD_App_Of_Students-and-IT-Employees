@@ -2,11 +2,13 @@ package com.entities;
 
 import com.annotations.LocalizedName;
 
+import java.io.Serializable;
+
 @LocalizedName("Tester")
-public class Tester extends Employee {
+public class Tester extends Employee implements Serializable {
     public enum TestType {
         Manual,
-        Automated;
+        Automated
     }
 
     private TestType testType;

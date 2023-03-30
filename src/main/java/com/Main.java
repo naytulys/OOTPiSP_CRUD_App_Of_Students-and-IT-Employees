@@ -2,14 +2,23 @@ package com;
 
 
 import com.entities.*;
+import com.serializers.BinarySerializer;
+import com.serializers.SerializerDescription;
+import com.serializers.TextSerializer;
+import com.serializers.XMLSerializer;
 import com.ui.MainWindow;
 import com.utils.ClassDescription;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
 
     private static final ObservableList<ClassDescription> classList;
+    private static final ObservableList<SerializerDescription> serializerList;
 
     static {
         /* united description for all app classes into one list */
@@ -21,6 +30,16 @@ public class Main {
                 new ClassDescription(Manager.class),
                 new ClassDescription(Tester.class)
         );
+        serializerList = FXCollections.observableArrayList();
+        serializerList.addAll(
+                new SerializerDescription(BinarySerializer.class, new ArrayList<>(List.of("bin"))),
+                new SerializerDescription(XMLSerializer.class, new ArrayList<>(List.of("xml"))),
+                new SerializerDescription(TextSerializer.class, new ArrayList<>(List.of("txt")))
+        );
+    }
+
+    public static ObservableList<SerializerDescription> getSerializerList() {
+        return serializerList;
     }
 
     public static ObservableList<ClassDescription> getClassList() {
