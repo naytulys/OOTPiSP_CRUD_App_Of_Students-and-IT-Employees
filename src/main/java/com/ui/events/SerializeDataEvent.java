@@ -4,8 +4,6 @@ import com.Main;
 import com.serializers.Serializer;
 import com.serializers.SerializerDescription;
 import com.utils.ClassDescription;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -23,18 +21,19 @@ public class SerializeDataEvent implements ButtonEvent {
             String fileExtension = filePath.substring(filePath.lastIndexOf('.') + 1);
             for (SerializerDescription serializerDescription : Main.getSerializerList()) {
                 if (serializerDescription.getExtensionsToSerialize().contains(fileExtension)) {
+                    ArrayList<Object> listToSerialize = new ArrayList<>();
+                    for (ClassDescription objectToSerialize : objectListView.getItems()) {
+                        listToSerialize.add(objectToSerialize.getObject_For_Description());
+                    }
                     try {
                         Serializer serializer = serializerDescription.getSerializer().newInstance();
                         FileOutputStream outputStream = new FileOutputStream(filePath);
-                        ArrayList<Object> listToSerialize = new ArrayList<>();
-                        for (ClassDescription objectToSerialize : objectListView.getItems()) {
-                            listToSerialize.add(objectToSerialize.getObject_For_Description());
-                        }
-                        serializer.serialize(listToSerialize, outputStream);
+                        serializer.serialize(parentStage, listToSerialize, outputStream);
                         outputStream.close();
+                        new ShowMessage(parentStage, "Data serialization done.");
 
                     } catch (InstantiationException | IllegalAccessException | IOException e) {
-                        e.printStackTrace();
+                        new ShowMessage(parentStage, "There is some exceptions while serialization.");
                     }
                 }
             }

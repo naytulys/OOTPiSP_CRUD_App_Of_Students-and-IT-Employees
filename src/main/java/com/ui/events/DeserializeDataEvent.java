@@ -4,7 +4,6 @@ import com.Main;
 import com.serializers.Serializer;
 import com.serializers.SerializerDescription;
 import com.utils.ClassDescription;
-import com.utils.EditWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
@@ -12,7 +11,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class DeserializeDataEvent implements ButtonEvent {
@@ -25,18 +23,23 @@ public class DeserializeDataEvent implements ButtonEvent {
             String fileExtension = filePath.substring(filePath.lastIndexOf('.') + 1);
             for (SerializerDescription serializerDescription : Main.getSerializerList()) {
                 if (serializerDescription.getExtensionsToSerialize().contains(fileExtension)) {
+                    ArrayList<Object> deserializedList;
                     try {
                         Serializer deserializer = serializerDescription.getSerializer().newInstance();
                         FileInputStream in = new FileInputStream(filePath);
-                        ArrayList<Object> deserializedList = deserializer.deserialize(in);
+                        deserializedList = deserializer.deserialize(parentStage, in);
+                        in.close();
+                    } catch (InstantiationException | IllegalAccessException | IOException e) {
+                        new ShowMessage(parentStage, "There is some exceptions while deserialization.");
+                        deserializedList = null;
+                    }
+                    if (deserializedList != null) {
                         ObservableList<ClassDescription> deserializedObservableList = FXCollections.observableArrayList();
                         for (Object deserializedObject : deserializedList) {
                             deserializedObservableList.add(new ClassDescription(deserializedObject));
                         }
                         objectListView.setItems(deserializedObservableList);
-                        in.close();
-                    } catch (InstantiationException | IllegalAccessException | IOException e) {
-                        e.printStackTrace();
+                        new ShowMessage(parentStage, "Data deserialization done.");
                     }
                 }
             }
