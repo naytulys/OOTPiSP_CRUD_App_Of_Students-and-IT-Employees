@@ -61,21 +61,13 @@ public class MainWindow extends Application {
          * but now execute method at all clicking on buttons
          * try to get value from choice box
          * */
-        addButton.setOnAction(actionEvent -> {
-            execute_ButtonEvent(new AddButtonEvent(), primaryStage, selectClass, objectListView);
-        });
+        addButton.setOnAction(actionEvent -> execute_ButtonEvent(new AddButtonEvent(), primaryStage, selectClass, objectListView));
 
-        editButton.setOnAction(actionEvent -> {
-            execute_ButtonEvent(new EditButtonEvent(), primaryStage, selectClass, objectListView);
-        });
+        editButton.setOnAction(actionEvent -> execute_ButtonEvent(new EditButtonEvent(), primaryStage, selectClass, objectListView));
 
-        removeButton.setOnAction(actionEvent -> {
-            execute_ButtonEvent(new RemoveButtonEvent(), primaryStage, selectClass, objectListView);
-        });
+        removeButton.setOnAction(actionEvent -> execute_ButtonEvent(new RemoveButtonEvent(), primaryStage, selectClass, objectListView));
 
-        diagramButton.setOnAction(actionEvent -> {
-            execute_ButtonEvent(new ShowDiagramEvent(), primaryStage, selectClass, objectListView);
-        });
+        diagramButton.setOnAction(actionEvent -> execute_ButtonEvent(new ShowDiagramEvent(), primaryStage, selectClass, objectListView));
 
         bottomNavigation.setSpacing(5);
 
@@ -96,12 +88,8 @@ public class MainWindow extends Application {
         menuBar.getMenus().add(menuFile);
         MenuItem menuOpen = new MenuItem("Open..");
         MenuItem menuSave = new MenuItem("Save as..");
-        menuOpen.setOnAction(actionEvent -> {
-            execute_ButtonEvent(new DeserializeDataEvent(), primaryStage, selectClass, objectListView);
-        });
-        menuSave.setOnAction(actionEvent -> {
-            execute_ButtonEvent(new SerializeDataEvent(), primaryStage, selectClass, objectListView);
-        });
+        menuOpen.setOnAction(actionEvent -> execute_ButtonEvent(new DeserializeDataEvent(), primaryStage, selectClass, objectListView));
+        menuSave.setOnAction(actionEvent -> execute_ButtonEvent(new SerializeDataEvent(), primaryStage, selectClass, objectListView));
         menuFile.getItems().add(menuOpen);
         menuFile.getItems().add(menuSave);
 
@@ -134,9 +122,9 @@ public class MainWindow extends Application {
                 Arrays.asList(
                         new ClassDescription(new Student("Aleksey", "Bobrik", Person.Sex.Male, "bobrik@gmail.com", "BSUIR", "KSIS", "POIT", 2, 151002, false, true)),
                         new ClassDescription(new Manager("Vadim", "Kragel", Person.Sex.Male, "Kragel@gmail.com", 6000, 20, Employee.Education.Height, 1000)),
-                        new ClassDescription(new Tester("Daria", "Zavaluk", Person.Sex.Female, "zavaluk@gmail.com", 1000, 3, Employee.Education.None, Tester.TestType.Automated)),
-                        new ClassDescription(new Designer("Alena", "Kruegar", Person.Sex.Female, "kruegar@gmail.com", 1500, 6, Employee.Education.Middle, Designer.Designer_Skills.Illustrator, Designer.Designer_Type.Game)),
-                        new ClassDescription(new Programmer("Nikita", "Krashevski", Person.Sex.Male, "nirita.krashevski@gmail.com", 5000, 13, Employee.Education.Height, Programmer.Category.Senior, Programmer.ProgSkills.JAVA))
+                        new ClassDescription(new Tester("Daria", "Zavaluk", Person.Sex.Female, "zavaluk@gmail.com", 1000, 3, Employee.Education.None, Tester.TestType.Automated, null)),
+                        new ClassDescription(new Designer("Alena", "Kruegar", Person.Sex.Female, "kruegar@gmail.com", 1500, 6, Employee.Education.Middle, Designer.DesignerSkills.Illustrator, Designer.DesignerType.Game, null)),
+                        new ClassDescription(new Programmer("Nikita", "Krashevski", Person.Sex.Male, "nirita.krashevski@gmail.com", 5000, 13, Employee.Education.Height, Programmer.Category.Senior, Programmer.ProgSkills.JAVA, null))
                 )
         );
         objectListView.getItems().addAll(classDescriptions);

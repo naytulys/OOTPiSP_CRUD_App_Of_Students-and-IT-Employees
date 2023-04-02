@@ -17,9 +17,9 @@ public class Programmer extends Employee implements Serializable {
         JAVA,
         SWIFT
     }
-
     private Category category;
     private ProgSkills progSkills;
+    private Manager manager;
 
     @LocalizedName("Category")
     public Category getCategory() {
@@ -31,6 +31,11 @@ public class Programmer extends Employee implements Serializable {
         return progSkills;
     }
 
+    @LocalizedName("Manager")
+    public Manager getManager() {
+        return manager;
+    }
+
     public void setCategory(Category category) {
         this.category = category;
     }
@@ -39,13 +44,18 @@ public class Programmer extends Employee implements Serializable {
         this.progSkills = progSkills;
     }
 
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+
     public Programmer(){
 
     }
 
-    public Programmer(String name, String surname, Sex sex, String email, double salary, int experience, Education education, Category category, ProgSkills progSkills) {
+    public Programmer(String name, String surname, Sex sex, String email, double salary, int experience, Education education, Category category, ProgSkills progSkills, Manager manager) {
         super(name, surname, sex, email, salary, experience, education);
         this.category = category;
         this.progSkills = progSkills;
+        this.manager = manager;
     }
 }
