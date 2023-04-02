@@ -32,7 +32,7 @@ public class ExtractFields extends VBox {
         ArrayList<FieldOptions> fields = FieldsParser.parseFields(objectToParse);
         ArrayList<Node> generatedFields = new ArrayList<>();
         for (FieldOptions field : fields) {
-            if (field.get_Field_User_Interface_Type() == FieldOptions.FieldType.INNER_CLASS) {
+            if (field.getFieldUserInterfaceType() == FieldOptions.FieldType.INNERCLASS) {
                 generatedFields.add(new Separator());
                 Label titleLabel = new Label(field.getFieldName());
 
