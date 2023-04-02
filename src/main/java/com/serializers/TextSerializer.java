@@ -1,6 +1,7 @@
 package com.serializers;
 
 import com.annotations.LocalizedName;
+import com.ui.events.ShowMessage;
 import com.utils.FieldOptions;
 import com.utils.FieldsParser;
 import javafx.collections.FXCollections;
@@ -8,11 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 @LocalizedName("Text Serializer")
-public class TextSerializer implements Serializer{
+public class TextSerializer implements Serializer {
     @Override
     public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
@@ -22,7 +25,7 @@ public class TextSerializer implements Serializer{
             }
             outputStreamWriter.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            new ShowMessage(parentStage, "There is some exceptions while text serialization.");
         }
     }
 
@@ -51,26 +54,67 @@ public class TextSerializer implements Serializer{
         String line;
         try {
             Object currentObject = null;
-            HashMap<String, String> fields = new HashMap<>();
+            HashMap<String, String> setterNameToValueMap = new HashMap<>();
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("[")) {
                     String className = line.substring(1, line.length() - 1);
-                    currentObject = Class.forName(className).newInstance();
+                    currentObject = Class.forName(className).getConstructor().newInstance();
                 } else if (line.contains("=")) {
-                    String fieldName = line.substring(0, line.indexOf("="));
+                    String fieldSetterName = line.substring(0, line.indexOf("="));
                     String fieldValue = line.substring(line.indexOf("=") + 1);
-                    fields.put(fieldName, fieldValue);
-                } else {
-                    /* set fields to current object */
+                    setterNameToValueMap.put(fieldSetterName, fieldValue);
+                } else if (currentObject != null) {
+                    /* set setterNameToValueMap to current object */
+                    setObjectFieldsExceptInnerClasses(currentObject, setterNameToValueMap);
                     resultObjectList.add(currentObject);
                     currentObject = null;
-                    fields = new HashMap<>();
+                    setterNameToValueMap = new HashMap<>();
                 }
             }
             /* restore dependencies */
-        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            new ShowMessage(parentStage, "There is some exceptions while text deserialization.");
+            resultObjectList = null;
         }
         return resultObjectList;
+    }
+
+    private void setObjectFieldsExceptInnerClasses(Object objectToFill, HashMap<String, String> setterNameToValueMap) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        ArrayList<FieldOptions> objectFieldOptions = FieldsParser.parseFields(objectToFill);
+        for (FieldOptions fieldOption : objectFieldOptions) {
+            /* serialize method implementation
+             * using indexOf method for inner classes
+             * that's why resolving links for inner classes fields
+             * possible only when all objects are deserialized
+             * */
+            if (fieldOption.getFieldUserInterfaceType() == FieldOptions.FieldType.INNERCLASS) {
+                continue;
+            }
+            String fieldSetterName = fieldOption.getSet().getName();
+            if (setterNameToValueMap.containsKey(fieldSetterName)) {
+                String value = setterNameToValueMap.get(fieldSetterName);
+                Object fieldValue = createObjectByClassNameAndStringValue(fieldOption.getFieldClassType(), value);
+                fieldOption.getSet().invoke(objectToFill, fieldValue);
+            }
+        }
+    }
+
+    private Object createObjectByClassNameAndStringValue(Class<?> className, String value) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        className = FieldsParser.convert_Primitive_To_References_Types(className);
+        /* Without value null checking
+         * invoke might produce InvocationTargetException
+         * when class represented by className is Enum type class
+         * */
+        if (value.equals("null")) {
+            return null;
+        }
+        /* for String class is not exist declaration for valueOf(String s) method
+         * getMethod throw NoSuchMethodException without this checking
+         * */
+        if (className == String.class) {
+            return value;
+        }
+        Method valueOfMethod = className.getMethod("valueOf", String.class);
+        return valueOfMethod.invoke(null, value);
     }
 }

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class FieldsParser {
 
-    private static Class<?> convert_Primitive_To_References_Types(Class<?> primitiveType) {
+    public static Class<?> convert_Primitive_To_References_Types(Class<?> primitiveType) {
         for (Map.Entry<Class<?>, Class<?>> entry : FieldOptions.PRIMITIVETYPEWRAPPER.entrySet()) {
             if (primitiveType.equals(entry.getValue())) {
                 return entry.getKey();
@@ -46,7 +46,7 @@ public class FieldsParser {
                 fields.put(fieldName, fieldOptions);
             }
         }
-        for (String currentName : fields.keySet()){
+        for (String currentName : fields.keySet()) {
             FieldOptions current = fields.get(currentName);
             if (current.getGet() != null && current.getSet() != null) {
                 classFields.add(fields.get(currentName));
