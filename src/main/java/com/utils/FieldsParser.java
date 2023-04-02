@@ -47,7 +47,10 @@ public class FieldsParser {
             }
         }
         for (String currentName : fields.keySet()){
-            classFields.add(fields.get(currentName));
+            FieldOptions current = fields.get(currentName);
+            if (current.getGet() != null && current.getSet() != null) {
+                classFields.add(fields.get(currentName));
+            }
         }
 
         return classFields;
