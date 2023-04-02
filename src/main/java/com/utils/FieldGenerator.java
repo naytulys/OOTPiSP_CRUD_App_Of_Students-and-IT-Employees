@@ -10,21 +10,12 @@ import javafx.scene.layout.Pane;
 public class FieldGenerator extends Pane {
 
     public FieldGenerator(Object objectToInspect, FieldOptions field) {
-        FieldHandle newField;
-        switch (field.get_Field_User_Interface_Type()) {
-            case TEXT:
-                newField = new TextFieldHandle(objectToInspect, field);
-                break;
-            case BOOLEAN:
-                newField = new BooleanFieldHandle(objectToInspect, field);
-                break;
-            case LIST:
-                newField = new SelectFieldEditor(objectToInspect, field);
-                break;
-            default:
-                newField = null;
-                break;
-        }
+        FieldHandle newField = switch (field.getFieldUserInterfaceType()) {
+            case TEXT -> new TextFieldHandle(objectToInspect, field);
+            case BOOLEAN -> new BooleanFieldHandle(objectToInspect, field);
+            case LIST -> new SelectFieldEditor(objectToInspect, field);
+            default -> null;
+        };
         if (newField != null) {
             this.getChildren().add(newField.getControl());
         }

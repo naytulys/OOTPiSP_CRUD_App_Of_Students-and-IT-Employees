@@ -9,7 +9,7 @@ import java.util.Map;
 public class FieldsParser {
 
     private static Class<?> convert_Primitive_To_References_Types(Class<?> primitiveType) {
-        for (Map.Entry<Class<?>, Class<?>> entry : FieldOptions.PRIMITIVE_TYPE.entrySet()) {
+        for (Map.Entry<Class<?>, Class<?>> entry : FieldOptions.PRIMITIVETYPEWRAPPER.entrySet()) {
             if (primitiveType.equals(entry.getValue())) {
                 return entry.getKey();
             }
@@ -47,7 +47,10 @@ public class FieldsParser {
             }
         }
         for (String currentName : fields.keySet()){
-            classFields.add(fields.get(currentName));
+            FieldOptions current = fields.get(currentName);
+            if (current.getGet() != null && current.getSet() != null) {
+                classFields.add(fields.get(currentName));
+            }
         }
 
         return classFields;

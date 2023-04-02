@@ -1,6 +1,8 @@
 package com.serializers;
 
 import com.annotations.LocalizedName;
+import com.ui.events.ShowMessage;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,25 +11,26 @@ import java.util.ArrayList;
 public class BinarySerializer implements Serializer {
 
     @Override
-    public void serialize(ArrayList<Object> objectListToWrite, OutputStream outputStream) {
+    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             objectOutputStream.writeObject(new ArrayList<>(objectListToWrite));
             objectOutputStream.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            new ShowMessage(parentStage, "There is some exceptions while binary serialization.");
         }
     }
 
     @Override
-    public ArrayList<Object> deserialize(InputStream inputStream) {
-        Object deserializedObject = null;
+    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) {
+        Object deserializedObject;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
             deserializedObject = objectInputStream.readObject();
             objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            new ShowMessage(parentStage, "There is some exceptions while binary deserialization.");
+            deserializedObject = null;
         }
         return (ArrayList<Object>) deserializedObject;
     }

@@ -6,47 +6,58 @@ import java.io.Serializable;
 
 @LocalizedName("Designer")
 public class Designer extends Employee implements Serializable {
-    public enum Designer_Skills {
+    public enum DesignerSkills {
         HTML,
         CSS,
         Illustrator,
         InDesign
     }
 
-    public enum Designer_Type {
+    public enum DesignerType {
         Game,
         WEB,
         Graphic
     }
 
-    private Designer_Skills designer_Skills;
-    private Designer_Type designer_Type;
-
+    private DesignerSkills designerSkills;
+    private DesignerType designerType;
+    private Manager manager;
+    
     @LocalizedName("Designer skills")
-    public Designer_Skills getDesigner_Skills() {
-        return designer_Skills;
+    public DesignerSkills getDesignerSkills() {
+        return designerSkills;
     }
 
     @LocalizedName("Designer type")
-    public Designer_Type getDesigner_Type() {
-        return designer_Type;
+    public DesignerType getDesignerType() {
+        return designerType;
     }
 
-    public void setDesigner_Skills(Designer_Skills designer_Skills) {
-        this.designer_Skills = designer_Skills;
+    @LocalizedName("Manager")
+    public Manager getManager() {
+        return manager;
+    }
+    
+    public void setDesignerSkills(DesignerSkills designerSkills) {
+        this.designerSkills = designerSkills;
     }
 
-    public void setDesigner_Type(Designer_Type designer_Type) {
-        this.designer_Type = designer_Type;
+    public void setDesignerType(DesignerType designerType) {
+        this.designerType = designerType;
     }
 
+    public void setManager(Manager manager) {
+        this.manager = manager;
+    }
+    
     public Designer(){
 
     }
 
-    public Designer(String name, String surname, Sex sex, String email, double salary, int experience, Education education, Designer_Skills designer_Skills, Designer_Type designer_Type) {
+    public Designer(String name, String surname, Sex sex, String email, double salary, int experience, Education education, DesignerSkills designerSkills, DesignerType designerType, Manager manager) {
         super(name, surname, sex, email, salary, experience, education);
-        this.designer_Skills = designer_Skills;
-        this.designer_Type = designer_Type;
+        this.designerSkills = designerSkills;
+        this.designerType = designerType;
+        this.manager = manager;
     }
 }

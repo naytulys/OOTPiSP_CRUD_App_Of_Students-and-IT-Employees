@@ -14,24 +14,24 @@ public class FieldOptions {
     private Class<?> fieldClassType;
     private Method get, set;
 
-    public static Map<Class<?>, Class<?>> PRIMITIVE_TYPE = new HashMap<>();
+    public static Map<Class<?>, Class<?>> PRIMITIVETYPEWRAPPER = new HashMap<>();
 
     static {
-        PRIMITIVE_TYPE.put(Boolean.class, boolean.class);
-        PRIMITIVE_TYPE.put(Integer.class, int.class);
-        PRIMITIVE_TYPE.put(Byte.class, byte.class);
-        PRIMITIVE_TYPE.put(Character.class, char.class);
-        PRIMITIVE_TYPE.put(Short.class, short.class);
-        PRIMITIVE_TYPE.put(Long.class, long.class);
-        PRIMITIVE_TYPE.put(Float.class, float.class);
-        PRIMITIVE_TYPE.put(Double.class, double.class);
+        PRIMITIVETYPEWRAPPER.put(Boolean.class, boolean.class);
+        PRIMITIVETYPEWRAPPER.put(Integer.class, int.class);
+        PRIMITIVETYPEWRAPPER.put(Byte.class, byte.class);
+        PRIMITIVETYPEWRAPPER.put(Character.class, char.class);
+        PRIMITIVETYPEWRAPPER.put(Short.class, short.class);
+        PRIMITIVETYPEWRAPPER.put(Long.class, long.class);
+        PRIMITIVETYPEWRAPPER.put(Float.class, float.class);
+        PRIMITIVETYPEWRAPPER.put(Double.class, double.class);
     }
 
     public FieldOptions(String methodName) {
         this.methodName = methodName;
     }
 
-    public FieldType get_Field_User_Interface_Type() {
+    public FieldType getFieldUserInterfaceType() {
         Class<?> classType = getFieldClassType();
         if (isBoolean(classType)) {
             return FieldOptions.FieldType.BOOLEAN;
@@ -39,7 +39,7 @@ public class FieldOptions {
             return FieldOptions.FieldType.TEXT;
         } else if (List.class.isAssignableFrom(classType) || classType.isEnum()) {
             return FieldOptions.FieldType.LIST;
-        } else return FieldOptions.FieldType.INNER_CLASS;
+        } else return FieldOptions.FieldType.INNERCLASS;
     }
 
     public String getFieldName() {
@@ -91,13 +91,13 @@ public class FieldOptions {
 
     public enum FieldType {
         LIST,
-        INNER_CLASS,
+        INNERCLASS,
         BOOLEAN,
         TEXT
     }
 
     public static boolean isTextFieldAssigned(Class<?> classType) {
-        return PRIMITIVE_TYPE.containsKey(classType) || PRIMITIVE_TYPE.containsValue(classType) || classType.equals(String.class);
+        return PRIMITIVETYPEWRAPPER.containsKey(classType) || PRIMITIVETYPEWRAPPER.containsValue(classType) || classType.equals(String.class);
     }
 
     private static boolean isBoolean(Class<?> classType) {
