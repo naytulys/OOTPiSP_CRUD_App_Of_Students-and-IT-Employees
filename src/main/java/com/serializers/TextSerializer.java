@@ -4,6 +4,8 @@ import com.annotations.LocalizedName;
 import com.ui.events.ShowMessage;
 import com.utils.FieldOptions;
 import com.utils.FieldsParser;
+import com.utils.InnerClassDependencyRecord;
+import com.utils.InnerClassesDependencyRestorer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
@@ -16,6 +18,9 @@ import java.util.HashMap;
 
 @LocalizedName("Text Serializer")
 public class TextSerializer implements Serializer {
+
+    private final InnerClassesDependencyRestorer dependencyRestorer = new InnerClassesDependencyRestorer();
+
     @Override
     public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
@@ -49,6 +54,7 @@ public class TextSerializer implements Serializer {
 
     @Override
     public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) {
+        this.dependencyRestorer.clear();
         ArrayList<Object> resultObjectList = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
@@ -72,6 +78,7 @@ public class TextSerializer implements Serializer {
                 }
             }
             /* restore dependencies */
+            this.dependencyRestorer.restoreInnerClassesDependencies(resultObjectList);
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             new ShowMessage(parentStage, "There is some exceptions while text deserialization.");
             resultObjectList = null;
@@ -87,14 +94,16 @@ public class TextSerializer implements Serializer {
              * that's why resolving links for inner classes fields
              * possible only when all objects are deserialized
              * */
-            if (fieldOption.getFieldUserInterfaceType() == FieldOptions.FieldType.INNERCLASS) {
-                continue;
-            }
             String fieldSetterName = fieldOption.getSet().getName();
             if (setterNameToValueMap.containsKey(fieldSetterName)) {
                 String value = setterNameToValueMap.get(fieldSetterName);
-                Object fieldValue = createObjectByClassNameAndStringValue(fieldOption.getFieldClassType(), value);
-                fieldOption.getSet().invoke(objectToFill, fieldValue);
+                if (fieldOption.getFieldUserInterfaceType() == FieldOptions.FieldType.INNERCLASS) {
+                    InnerClassDependencyRecord record = new InnerClassDependencyRecord(objectToFill, fieldOption, Integer.parseInt(value));
+                    this.dependencyRestorer.add(record);
+                } else {
+                    Object fieldValue = createObjectByClassNameAndStringValue(fieldOption.getFieldClassType(), value);
+                    fieldOption.getSet().invoke(objectToFill, fieldValue);
+                }
             }
         }
     }
