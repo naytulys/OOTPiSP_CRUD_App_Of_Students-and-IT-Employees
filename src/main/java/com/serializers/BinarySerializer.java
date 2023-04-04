@@ -12,10 +12,8 @@ public class BinarySerializer implements Serializer {
 
     @Override
     public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+        try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
             objectOutputStream.writeObject(new ArrayList<>(objectListToWrite));
-            objectOutputStream.close();
         } catch (IOException e) {
             new ShowMessage(parentStage, "There is some exceptions while binary serialization.");
         }

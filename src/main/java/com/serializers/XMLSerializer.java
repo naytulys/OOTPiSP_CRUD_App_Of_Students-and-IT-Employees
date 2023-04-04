@@ -14,10 +14,8 @@ import java.util.ArrayList;
 public class XMLSerializer implements Serializer{
     @Override
     public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
-        try {
-            XMLEncoder xmlEncoder = new XMLEncoder(outputStream);
+        try (XMLEncoder xmlEncoder = new XMLEncoder(outputStream)){
             xmlEncoder.writeObject(objectListToWrite);
-            xmlEncoder.close();
         } catch (Exception e) {
             new ShowMessage(parentStage, "There is some exceptions while XML serialization.");
         }

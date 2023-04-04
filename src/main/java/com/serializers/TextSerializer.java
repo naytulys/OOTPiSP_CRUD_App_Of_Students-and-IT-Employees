@@ -23,12 +23,10 @@ public class TextSerializer implements Serializer {
 
     @Override
     public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-        try {
+        try(OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream)) {
             for (Object object : objectListToWrite) {
                 outputStreamWriter.write(serializeObject(object, objectListToWrite));
             }
-            outputStreamWriter.close();
         } catch (IOException e) {
             new ShowMessage(parentStage, "There is some exceptions while text serialization.");
         }
