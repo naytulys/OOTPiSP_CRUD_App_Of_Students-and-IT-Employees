@@ -22,10 +22,8 @@ public class XMLSerializer implements Serializer{
     @Override
     public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) {
         Object deserializedObject;
-        try {
-            XMLDecoder xmlDecoder = new XMLDecoder(inputStream);
+        try (XMLDecoder xmlDecoder = new XMLDecoder(inputStream)) {
             deserializedObject = xmlDecoder.readObject();
-            xmlDecoder.close();
         } catch (Exception e) {
             new ShowMessage(parentStage, "There is some exceptions while XML deserialization.");
             deserializedObject = null;

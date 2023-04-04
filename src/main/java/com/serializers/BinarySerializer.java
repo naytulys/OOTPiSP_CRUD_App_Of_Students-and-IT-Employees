@@ -12,7 +12,7 @@ public class BinarySerializer implements Serializer {
 
     @Override
     public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException {
-        try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
             objectOutputStream.writeObject(new ArrayList<>(objectListToWrite));
         }
     }
@@ -20,10 +20,8 @@ public class BinarySerializer implements Serializer {
     @Override
     public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) {
         Object deserializedObject;
-        try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
             deserializedObject = objectInputStream.readObject();
-            objectInputStream.close();
         } catch (IOException | ClassNotFoundException e) {
             new ShowMessage(parentStage, "There is some exceptions while binary deserialization.");
             deserializedObject = null;

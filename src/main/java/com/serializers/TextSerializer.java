@@ -52,9 +52,8 @@ public class TextSerializer implements Serializer {
     public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) {
         this.dependencyRestorer.clear();
         ArrayList<Object> resultObjectList = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
-        try {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             Object currentObject = null;
             HashMap<String, String> setterNameToValueMap = new HashMap<>();
             while ((line = reader.readLine()) != null) {
