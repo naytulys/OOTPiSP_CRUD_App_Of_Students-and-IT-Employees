@@ -18,13 +18,10 @@ public class BinarySerializer implements Serializer {
     }
 
     @Override
-    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) {
+    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) throws IOException, ClassNotFoundException {
         Object deserializedObject;
         try (ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
             deserializedObject = objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            new ShowMessage(parentStage, "There is some exceptions while binary deserialization.");
-            deserializedObject = null;
         }
         return (ArrayList<Object>) deserializedObject;
     }

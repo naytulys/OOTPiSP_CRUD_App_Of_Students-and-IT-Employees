@@ -24,9 +24,6 @@ public class XMLSerializer implements Serializer{
         Object deserializedObject;
         try (XMLDecoder xmlDecoder = new XMLDecoder(inputStream)) {
             deserializedObject = xmlDecoder.readObject();
-        } catch (Exception e) {
-            new ShowMessage(parentStage, "There is some exceptions while XML deserialization.");
-            deserializedObject = null;
         }
         return (ArrayList<Object>)deserializedObject;
     }

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class DeserializeDataEvent implements ButtonEvent {
@@ -29,7 +30,7 @@ public class DeserializeDataEvent implements ButtonEvent {
                     try (FileInputStream in = new FileInputStream(filePath)) {
                         Serializer deserializer = serializerDescription.getSerializer().newInstance();
                         deserializedList = deserializer.deserialize(parentStage, in);
-                    } catch (InstantiationException | IllegalAccessException | IOException e) {
+                    } catch (InstantiationException | IllegalAccessException | IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
                         new ShowMessage(parentStage, "There is some exceptions while deserialization.");
                         deserializedList = null;
                     }

@@ -49,7 +49,7 @@ public class TextSerializer implements Serializer {
     }
 
     @Override
-    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) {
+    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
         this.dependencyRestorer.clear();
         ArrayList<Object> resultObjectList = new ArrayList<>();
         String line;
@@ -74,9 +74,6 @@ public class TextSerializer implements Serializer {
             }
             /* restore dependencies */
             this.dependencyRestorer.restoreInnerClassesDependencies(resultObjectList);
-        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            new ShowMessage(parentStage, "There is some exceptions while text deserialization.");
-            resultObjectList = null;
         }
         return resultObjectList;
     }
