@@ -16,8 +16,6 @@ public class XMLSerializer implements Serializer{
     public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
         try (XMLEncoder xmlEncoder = new XMLEncoder(outputStream)){
             xmlEncoder.writeObject(objectListToWrite);
-        } catch (Exception e) {
-            new ShowMessage(parentStage, "There is some exceptions while XML serialization.");
         }
     }
 

@@ -22,13 +22,11 @@ public class TextSerializer implements Serializer {
     private final InnerClassesDependencyRestorer dependencyRestorer = new InnerClassesDependencyRestorer();
 
     @Override
-    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
+    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException {
         try(OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream)) {
             for (Object object : objectListToWrite) {
                 outputStreamWriter.write(serializeObject(object, objectListToWrite));
             }
-        } catch (IOException e) {
-            new ShowMessage(parentStage, "There is some exceptions while text serialization.");
         }
     }
 

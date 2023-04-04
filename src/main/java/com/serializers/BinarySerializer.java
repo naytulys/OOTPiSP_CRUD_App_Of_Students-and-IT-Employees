@@ -11,11 +11,9 @@ import java.util.ArrayList;
 public class BinarySerializer implements Serializer {
 
     @Override
-    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
+    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException {
         try(ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
             objectOutputStream.writeObject(new ArrayList<>(objectListToWrite));
-        } catch (IOException e) {
-            new ShowMessage(parentStage, "There is some exceptions while binary serialization.");
         }
     }
 
