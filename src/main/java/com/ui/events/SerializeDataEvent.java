@@ -25,13 +25,11 @@ public class SerializeDataEvent implements ButtonEvent {
                     for (ClassDescription objectToSerialize : objectListView.getItems()) {
                         listToSerialize.add(objectToSerialize.getObject_For_Description());
                     }
-                    try {
+                    try(FileOutputStream outputStream = new FileOutputStream(filePath)
+                    ) {
                         Serializer serializer = serializerDescription.getSerializer().newInstance();
-                        FileOutputStream outputStream = new FileOutputStream(filePath);
                         serializer.serialize(parentStage, listToSerialize, outputStream);
-                        outputStream.close();
                         new ShowMessage(parentStage, "Data serialization done.");
-
                     } catch (InstantiationException | IllegalAccessException | IOException e) {
                         new ShowMessage(parentStage, "There is some exceptions while serialization.");
                     }

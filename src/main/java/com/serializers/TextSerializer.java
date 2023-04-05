@@ -22,15 +22,11 @@ public class TextSerializer implements Serializer {
     private final InnerClassesDependencyRestorer dependencyRestorer = new InnerClassesDependencyRestorer();
 
     @Override
-    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-        try {
+    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException {
+        try(OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream)) {
             for (Object object : objectListToWrite) {
                 outputStreamWriter.write(serializeObject(object, objectListToWrite));
             }
-            outputStreamWriter.close();
-        } catch (IOException e) {
-            new ShowMessage(parentStage, "There is some exceptions while text serialization.");
         }
     }
 
@@ -53,12 +49,11 @@ public class TextSerializer implements Serializer {
     }
 
     @Override
-    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) {
+    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
         this.dependencyRestorer.clear();
         ArrayList<Object> resultObjectList = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
-        try {
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             Object currentObject = null;
             HashMap<String, String> setterNameToValueMap = new HashMap<>();
             while ((line = reader.readLine()) != null) {
@@ -79,9 +74,6 @@ public class TextSerializer implements Serializer {
             }
             /* restore dependencies */
             this.dependencyRestorer.restoreInnerClassesDependencies(resultObjectList);
-        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            new ShowMessage(parentStage, "There is some exceptions while text deserialization.");
-            resultObjectList = null;
         }
         return resultObjectList;
     }

@@ -10,7 +10,10 @@ import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class DeserializeDataEvent implements ButtonEvent {
@@ -24,12 +27,10 @@ public class DeserializeDataEvent implements ButtonEvent {
             for (SerializerDescription serializerDescription : Main.getSerializerList()) {
                 if (serializerDescription.getExtensionsToSerialize().contains(fileExtension)) {
                     ArrayList<Object> deserializedList;
-                    try {
+                    try (FileInputStream in = new FileInputStream(filePath)) {
                         Serializer deserializer = serializerDescription.getSerializer().newInstance();
-                        FileInputStream in = new FileInputStream(filePath);
                         deserializedList = deserializer.deserialize(parentStage, in);
-                        in.close();
-                    } catch (InstantiationException | IllegalAccessException | IOException e) {
+                    } catch (InstantiationException | IllegalAccessException | IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
                         new ShowMessage(parentStage, "There is some exceptions while deserialization.");
                         deserializedList = null;
                     }
