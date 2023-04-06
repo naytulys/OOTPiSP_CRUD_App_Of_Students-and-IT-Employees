@@ -18,7 +18,7 @@ public class SerializeDataEvent implements ButtonEvent {
         File selectedFile = fileChooser.showOpenDialog(parentStage);
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
-            String fileExtension = filePath.substring(filePath.lastIndexOf('.') + 1);
+            String fileExtension = filePath.substring(filePath.lastIndexOf('.'));
             for (SerializerDescription serializerDescription : Main.getSerializerList()) {
                 if (serializerDescription.getExtensionsToSerialize().contains(fileExtension)) {
                     ArrayList<Object> listToSerialize = new ArrayList<>();

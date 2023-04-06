@@ -31,7 +31,7 @@ public class DeserializeDataEvent implements ButtonEvent {
         if (openDialogResult == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             String filePath = selectedFile.getAbsolutePath();
-            String fileExtension = filePath.substring(filePath.lastIndexOf('.') + 1);
+            String fileExtension = filePath.substring(filePath.lastIndexOf('.'));
             for (SerializerDescription serializerDescription : Main.getSerializerList()) {
                 if (serializerDescription.getExtensionsToSerialize().contains(fileExtension)) {
                     ArrayList<Object> deserializedList;
