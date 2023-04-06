@@ -4,12 +4,14 @@ import com.Main;
 import com.serializers.Serializer;
 import com.serializers.SerializerDescription;
 import com.utils.ClassDescription;
+import com.utils.CustomFileChooserFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,12 +20,18 @@ import java.util.ArrayList;
 
 public class DeserializeDataEvent implements ButtonEvent {
     public void onClick(Stage parentStage, Class<?> selectedClass, ListView<ClassDescription> objectListView) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        File selectedFile = fileChooser.showOpenDialog(parentStage);
-        if (selectedFile != null) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Open Resource File");
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        for (SerializerDescription serializerDescription : Main.getSerializerList()) {
+            CustomFileChooserFilter filter = new CustomFileChooserFilter(serializerDescription);
+            fileChooser.addChoosableFileFilter(filter);
+        }
+        int openDialogResult = fileChooser.showOpenDialog(null);
+        if (openDialogResult == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
             String filePath = selectedFile.getAbsolutePath();
-            String fileExtension = filePath.substring(filePath.lastIndexOf('.') + 1);
+            String fileExtension = filePath.substring(filePath.lastIndexOf('.'));
             for (SerializerDescription serializerDescription : Main.getSerializerList()) {
                 if (serializerDescription.getExtensionsToSerialize().contains(fileExtension)) {
                     ArrayList<Object> deserializedList;

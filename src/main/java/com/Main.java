@@ -32,9 +32,9 @@ public class Main {
         );
         serializerList = FXCollections.observableArrayList();
         serializerList.addAll(
-                new SerializerDescription(BinarySerializer.class, new ArrayList<>(List.of("bin"))),
-                new SerializerDescription(XMLSerializer.class, new ArrayList<>(List.of("xml"))),
-                new SerializerDescription(TextSerializer.class, new ArrayList<>(List.of("txt")))
+                new SerializerDescription(BinarySerializer.class, new ArrayList<>(List.of(".bin"))),
+                new SerializerDescription(XMLSerializer.class, new ArrayList<>(List.of(".xml"))),
+                new SerializerDescription(TextSerializer.class, new ArrayList<>(List.of(".txt")))
         );
     }
 
