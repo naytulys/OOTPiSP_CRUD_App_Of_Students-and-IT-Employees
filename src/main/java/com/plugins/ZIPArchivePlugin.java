@@ -27,12 +27,15 @@ public class ZIPArchivePlugin extends ArchivePlugin {
     public void decompress(InputStream inputStream, OutputStream outputStream) throws IOException {
         try (ZipInputStream zipDecompressInputStream = new ZipInputStream(inputStream)){
             ZipEntry decompressZipEntry = zipDecompressInputStream.getNextEntry();
-            if (decompressZipEntry != null){
-                int readBytesAmount = zipDecompressInputStream.read(this.ARCHIVE_PLUGIN_BUFFER);
-                while (readBytesAmount > 0){
-                    outputStream.write(this.ARCHIVE_PLUGIN_BUFFER, 0, readBytesAmount);
-                    readBytesAmount = zipDecompressInputStream.read(this.ARCHIVE_PLUGIN_BUFFER);
+            while (decompressZipEntry != null) {
+                if (decompressZipEntry.getName().equals(this.COMPRESS_FILE_NAME)) {
+                    int readBytesAmount = zipDecompressInputStream.read(this.ARCHIVE_PLUGIN_BUFFER);
+                    while (readBytesAmount > 0) {
+                        outputStream.write(this.ARCHIVE_PLUGIN_BUFFER, 0, readBytesAmount);
+                        readBytesAmount = zipDecompressInputStream.read(this.ARCHIVE_PLUGIN_BUFFER);
+                    }
                 }
+                decompressZipEntry = zipDecompressInputStream.getNextEntry();
             }
         }
     }
