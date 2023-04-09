@@ -11,7 +11,7 @@ import java.util.zip.GZIPOutputStream;
 @LocalizedName("GZIP archive")
 public class GZIPArchivePlugin extends ArchivePlugin{
     @Override
-    void compress(InputStream inputStream, OutputStream outputStream) throws IOException {
+    public void compress(InputStream inputStream, OutputStream outputStream) throws IOException {
         try (GZIPOutputStream gzipCompressOutputStream = new GZIPOutputStream(outputStream)){
             int readBytesAmount = inputStream.read(this.ARCHIVE_PLUGIN_BUFFER);
             while (readBytesAmount > 0){
@@ -22,7 +22,7 @@ public class GZIPArchivePlugin extends ArchivePlugin{
     }
 
     @Override
-    void decompress(InputStream inputStream, OutputStream outputStream) throws IOException {
+    public void decompress(InputStream inputStream, OutputStream outputStream) throws IOException {
         try (GZIPInputStream gzipDecompressInputStream = new GZIPInputStream(inputStream)){
             int readBytesAmount = gzipDecompressInputStream.read(this.ARCHIVE_PLUGIN_BUFFER);
             while (readBytesAmount > 0) {
