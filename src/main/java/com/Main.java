@@ -21,7 +21,7 @@ public class Main {
 
     private static final ObservableList<ClassDescription> classList;
     private static final ObservableList<SerializerDescription> serializerList;
-    private static final ObservableList<PluginDescription> pluginsList;
+    private static final ArrayList<PluginDescription> pluginsList = new ArrayList<>();
 
     static {
         /* united description for all app classes into one list */
@@ -39,11 +39,8 @@ public class Main {
                 new SerializerDescription(XMLSerializer.class, new ArrayList<>(List.of(".xml"))),
                 new SerializerDescription(TextSerializer.class, new ArrayList<>(List.of(".txt")))
         );
-        pluginsList = FXCollections.observableArrayList();
-        pluginsList.addAll(
-                new PluginDescription(ZIPArchivePlugin.class, new ArrayList<>(List.of(".zip"))),
-                new PluginDescription(GZIPArchivePlugin.class, new ArrayList<>(List.of(".gzip")))
-        );
+        pluginsList.add(new PluginDescription(ZIPArchivePlugin.class, new ArrayList<>(List.of(".zip"))));
+        pluginsList.add(new PluginDescription(GZIPArchivePlugin.class, new ArrayList<>(List.of(".gzip"))));
     }
 
     public static ObservableList<SerializerDescription> getSerializerList() {
@@ -54,7 +51,7 @@ public class Main {
         return classList;
     }
 
-    public static ObservableList<PluginDescription> getPluginsList() {
+    public static ArrayList<PluginDescription> getPluginsList() {
         return pluginsList;
     }
 
