@@ -1,5 +1,7 @@
 package com.plugins;
 
+import com.annotations.LocalizedName;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -7,6 +9,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+@LocalizedName("Zip archive")
 public class ZIPArchivePlugin extends ArchivePlugin {
 
     @Override
