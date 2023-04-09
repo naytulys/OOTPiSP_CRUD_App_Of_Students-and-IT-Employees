@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class SerializeFileDescription {
 
-    private String fileAbsolutePath;
-    private String serializeFilePath;
+    private final String fileAbsolutePath;
+    private final String serializeFilePath;
     private String archiveExtension = null;
     private String serializeFileExtension = null;
 
@@ -47,21 +47,5 @@ public class SerializeFileDescription {
 
     public String getSerializeFileExtension() {
         return serializeFileExtension;
-    }
-
-    public void setFileAbsolutePath(String fileAbsolutePath) {
-        this.fileAbsolutePath = fileAbsolutePath;
-    }
-
-    public void setSerializeFilePath(String serializeFilePath) {
-        this.serializeFilePath = serializeFilePath;
-    }
-
-    public void setArchiveExtension(String archiveExtension) {
-        this.archiveExtension = archiveExtension;
-    }
-
-    public void setSerializeFileExtension(String serializeFileExtension) {
-        this.serializeFileExtension = serializeFileExtension;
     }
 }
