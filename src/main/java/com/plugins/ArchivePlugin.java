@@ -14,5 +14,5 @@ public abstract class ArchivePlugin {
 
     public abstract void compress(InputStream inputStream, OutputStream outputStream) throws IOException;
 
-    abstract void decompress(InputStream inputStream, OutputStream outputStream) throws IOException;
+    public abstract void decompress(InputStream inputStream, OutputStream outputStream) throws IOException;
 }
