@@ -2,23 +2,26 @@ package com;
 
 
 import com.entities.*;
+import com.plugins.GZIPArchivePlugin;
+import com.plugins.ZIPArchivePlugin;
 import com.serializers.BinarySerializer;
 import com.serializers.SerializerDescription;
 import com.serializers.TextSerializer;
 import com.serializers.XMLSerializer;
 import com.ui.MainWindow;
 import com.utils.ClassDescription;
+import com.utils.PluginDescription;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
 
     private static final ObservableList<ClassDescription> classList;
     private static final ObservableList<SerializerDescription> serializerList;
+    private static final ObservableList<PluginDescription> pluginsList;
 
     static {
         /* united description for all app classes into one list */
@@ -36,6 +39,11 @@ public class Main {
                 new SerializerDescription(XMLSerializer.class, new ArrayList<>(List.of(".xml"))),
                 new SerializerDescription(TextSerializer.class, new ArrayList<>(List.of(".txt")))
         );
+        pluginsList = FXCollections.observableArrayList();
+        pluginsList.addAll(
+                new PluginDescription(ZIPArchivePlugin.class, new ArrayList<>(List.of(".zip"))),
+                new PluginDescription(GZIPArchivePlugin.class, new ArrayList<>(List.of(".gzip")))
+        );
     }
 
     public static ObservableList<SerializerDescription> getSerializerList() {
@@ -44,6 +52,10 @@ public class Main {
 
     public static ObservableList<ClassDescription> getClassList() {
         return classList;
+    }
+
+    public static ObservableList<PluginDescription> getPluginsList() {
+        return pluginsList;
     }
 
     public static void main(String[] args) {
