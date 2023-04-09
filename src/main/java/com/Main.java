@@ -2,8 +2,6 @@ package com;
 
 
 import com.entities.*;
-import com.plugins.GZIPArchivePlugin;
-import com.plugins.ZIPArchivePlugin;
 import com.serializers.BinarySerializer;
 import com.serializers.SerializerDescription;
 import com.serializers.TextSerializer;
@@ -39,8 +37,6 @@ public class Main {
                 new SerializerDescription(XMLSerializer.class, new ArrayList<>(List.of(".xml"))),
                 new SerializerDescription(TextSerializer.class, new ArrayList<>(List.of(".txt")))
         );
-        pluginsList.add(new PluginDescription(ZIPArchivePlugin.class, new ArrayList<>(List.of(".zip"))));
-        pluginsList.add(new PluginDescription(GZIPArchivePlugin.class, new ArrayList<>(List.of(".gzip"))));
     }
 
     public static ObservableList<SerializerDescription> getSerializerList() {
