@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SerializeDataEvent implements ButtonEvent {
     public void onClick(Stage parentStage, Class<?> selectedClass, ListView<ClassDescription> objectListView) {
@@ -19,7 +20,7 @@ public class SerializeDataEvent implements ButtonEvent {
         fileChooser.setDialogTitle("Save Resource File");
         fileChooser.setAcceptAllFileFilterUsed(false);
         for (SerializerDescription serializerDescription : Main.getSerializerList()) {
-            CustomFileChooserFilter filter = new CustomFileChooserFilter(serializerDescription);
+            CustomFileChooserFilter filter = new CustomFileChooserFilter(serializerDescription, Main.getPluginsList());
             fileChooser.addChoosableFileFilter(filter);
         }
         int saveDialogResult = fileChooser.showSaveDialog(null);

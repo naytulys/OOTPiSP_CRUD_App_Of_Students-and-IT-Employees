@@ -24,7 +24,7 @@ public class DeserializeDataEvent implements ButtonEvent {
         fileChooser.setDialogTitle("Open Resource File");
         fileChooser.setAcceptAllFileFilterUsed(false);
         for (SerializerDescription serializerDescription : Main.getSerializerList()) {
-            CustomFileChooserFilter filter = new CustomFileChooserFilter(serializerDescription);
+            CustomFileChooserFilter filter = new CustomFileChooserFilter(serializerDescription, Main.getPluginsList());
             fileChooser.addChoosableFileFilter(filter);
         }
         int openDialogResult = fileChooser.showOpenDialog(null);
