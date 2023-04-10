@@ -17,8 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,6 +41,8 @@ public class MainWindow extends Application {
             pluginsList = new ArrayList<>();
             new ShowMessage(primaryStage, "There is some exceptions while loading plugins."+ "\n" + "App continue working without them");
         }
+        //pluginsList.add(new PluginDescription(ZIPArchivePlugin.class, new ArrayList<>(List.of(".zip"))));
+        //pluginsList.add(new PluginDescription(GZIPArchivePlugin.class, new ArrayList<>(List.of(".gzip"))));
         /* get description of all app classes */
         ObservableList<ClassDescription> classList = Main.getClassList();
         primaryStage.setTitle("Students-and-IT-Employees");
