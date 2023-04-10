@@ -3,7 +3,9 @@ package com.ui;
 import com.Main;
 import com.entities.*;
 import com.ui.events.*;
+import com.utils.ArchivePluginLoader;
 import com.utils.ClassDescription;
+import com.utils.PluginDescription;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -16,11 +18,17 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
 public class MainWindow extends Application {
+    private static ArrayList<PluginDescription> pluginsList = new ArrayList<>();
+
+    public static ArrayList<PluginDescription> getPluginsList() {
+        return pluginsList;
+    }
 
     public static void mainWindow(String[] args) {
         launch(args);
@@ -28,6 +36,13 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        ArchivePluginLoader archivePluginLoader = new ArchivePluginLoader();
+        try {
+            pluginsList = archivePluginLoader.loadPlugins("src/main/java/com/plugins");
+        } catch (Exception e) {
+            pluginsList = new ArrayList<>();
+            new ShowMessage(primaryStage, "There is some exceptions while loading plugins."+ "\n" + "App continue working without them");
+        }
         /* get description of all app classes */
         ObservableList<ClassDescription> classList = Main.getClassList();
         primaryStage.setTitle("Students-and-IT-Employees");

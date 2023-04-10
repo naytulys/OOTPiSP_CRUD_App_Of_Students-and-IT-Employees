@@ -4,15 +4,9 @@ import com.plugins.ArchivePlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.Properties;
 
 public class ArchivePluginLoader {
-
-    private final String CONFIGURE_FILENAME = "plugin.config";
-    private final String EXTENSIONS_SEPARATOR = " ";
 
     public ArrayList<PluginDescription> loadPlugins(String pluginsFolderDirectory) throws IOException, ClassNotFoundException {
         ArrayList<PluginDescription> loadedPluginDescriptions = new ArrayList<>();

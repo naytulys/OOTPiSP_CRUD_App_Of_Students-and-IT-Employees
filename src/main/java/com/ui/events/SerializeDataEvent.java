@@ -4,6 +4,7 @@ import com.Main;
 import com.plugins.ArchivePlugin;
 import com.serializers.Serializer;
 import com.serializers.SerializerDescription;
+import com.ui.MainWindow;
 import com.utils.ClassDescription;
 import com.utils.CustomFileChooserFilter;
 import com.utils.PluginDescription;
@@ -21,13 +22,13 @@ public class SerializeDataEvent implements ButtonEvent {
         fileChooser.setDialogTitle("Save Resource File");
         fileChooser.setAcceptAllFileFilterUsed(false);
         for (SerializerDescription serializerDescription : Main.getSerializerList()) {
-            CustomFileChooserFilter filter = new CustomFileChooserFilter(serializerDescription, Main.getPluginsList());
+            CustomFileChooserFilter filter = new CustomFileChooserFilter(serializerDescription, MainWindow.getPluginsList());
             fileChooser.addChoosableFileFilter(filter);
         }
         int saveDialogResult = fileChooser.showSaveDialog(null);
         if (saveDialogResult == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            SerializeFileDescription fileDescription = new SerializeFileDescription(selectedFile, Main.getSerializerList(), Main.getPluginsList());
+            SerializeFileDescription fileDescription = new SerializeFileDescription(selectedFile, Main.getSerializerList(), MainWindow.getPluginsList());
             boolean isSerializationDone = serializeDataMethod(parentStage, fileDescription, objectListView);
             if (isSerializationDone){
                 boolean isArchivingDone = archiveDataMethod(parentStage, fileDescription);
@@ -67,7 +68,7 @@ public class SerializeDataEvent implements ButtonEvent {
             return true;
         }
         boolean isArchivingDone = false;
-        for (PluginDescription pluginDescription : Main.getPluginsList()) {
+        for (PluginDescription pluginDescription : MainWindow.getPluginsList()) {
             if (pluginDescription.getArchiveExtension().contains(fileDescription.getArchiveExtension())) {
                 try(FileInputStream inputStream = new FileInputStream(fileDescription.getSerializeFilePath());
                     FileOutputStream outputStream = new FileOutputStream(fileDescription.getFileAbsolutePath())

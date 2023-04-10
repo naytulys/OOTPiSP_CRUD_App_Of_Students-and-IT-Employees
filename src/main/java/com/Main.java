@@ -19,7 +19,6 @@ public class Main {
 
     private static final ObservableList<ClassDescription> classList;
     private static final ObservableList<SerializerDescription> serializerList;
-    private static final ArrayList<PluginDescription> pluginsList = new ArrayList<>();
 
     static {
         /* united description for all app classes into one list */
@@ -45,10 +44,6 @@ public class Main {
 
     public static ObservableList<ClassDescription> getClassList() {
         return classList;
-    }
-
-    public static ArrayList<PluginDescription> getPluginsList() {
-        return pluginsList;
     }
 
     public static void main(String[] args) {
