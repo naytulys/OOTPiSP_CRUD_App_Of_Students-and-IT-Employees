@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class SerializeFileDescription {
 
     private final String fileAbsolutePath;
-    private final String serializeFilePath;
     private String archiveExtension = null;
     private String serializeFileExtension = null;
 
@@ -22,7 +21,7 @@ public class SerializeFileDescription {
                 }
             }
         }
-        this.serializeFilePath = this.archiveExtension == null ? this.fileAbsolutePath :
+        String serializeFilePath = this.archiveExtension == null ? this.fileAbsolutePath :
                 this.fileAbsolutePath.substring(0, this.fileAbsolutePath.length() - this.archiveExtension.length());
         for (SerializerDescription currentSerializeDescription : serializerList){
             for (String compareSerializeExtension : currentSerializeDescription.getExtensionsToSerialize()) {
@@ -35,10 +34,6 @@ public class SerializeFileDescription {
 
     public String getFileAbsolutePath() {
         return fileAbsolutePath;
-    }
-
-    public String getSerializeFilePath() {
-        return serializeFilePath;
     }
 
     public String getArchiveExtension() {
