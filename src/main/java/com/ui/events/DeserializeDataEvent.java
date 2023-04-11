@@ -15,10 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
@@ -35,58 +32,63 @@ public class DeserializeDataEvent implements ButtonEvent {
         if (openDialogResult == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             SerializeFileDescription fileDescription = new SerializeFileDescription(selectedFile, Main.getSerializerList(), MainWindow.getPluginsList());
-            if (unpackingDataMethod(parentStage, fileDescription)){
-                if (deserializeDataMethod(parentStage, fileDescription, objectListView)){
-                    new ShowMessage(parentStage, "Data deserialization done.");
+            try {
+                Serializer serializer = getSerializerByFileDescription(fileDescription);
+                ArchivePlugin archivePlugin = getArchivePluginByFileDescription(fileDescription);
+                if (serializer != null){
+                    try(FileInputStream inputStream = new FileInputStream(fileDescription.getFileAbsolutePath())) {
+                        if (archivePlugin == null) {
+                            deserializeDataInputStream(serializer, objectListView, inputStream);
+                        } else {
+                            ByteArrayOutputStream bufferOutputStream = new ByteArrayOutputStream();
+                            archivePlugin.decompress(inputStream, bufferOutputStream);
+                            deserializeDataInputStream(serializer, objectListView, new ByteArrayInputStream(bufferOutputStream.toByteArray()));
+                        }
+                        new ShowMessage(parentStage, "Data Deserialization Done");
+                    }
+                }else {
+                    new ShowMessage(parentStage, "There is some errors while deserialization.");
                 }
+            } catch (InstantiationException | IllegalAccessException | IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
+                new ShowMessage(parentStage, "There is some exceptions while deserialization.");
             }
         }
     }
 
-    private boolean deserializeDataMethod(Stage parentStage, SerializeFileDescription fileDescription, ListView<ClassDescription> objectListView){
+    private Serializer getSerializerByFileDescription(SerializeFileDescription fileDescription) throws InstantiationException, IllegalAccessException {
         if (fileDescription.getSerializeFileExtension() == null){
-            return false;
+            return null;
         }
-        ArrayList<Object> deserializedList = null;
+        Serializer resultSerializer = null;
         for (SerializerDescription serializerDescription : Main.getSerializerList()) {
             if (serializerDescription.getExtensionsToSerialize().contains(fileDescription.getSerializeFileExtension())) {
-                try (FileInputStream in = new FileInputStream(fileDescription.getSerializeFilePath())) {
-                    Serializer deserializer = serializerDescription.getSerializer().newInstance();
-                    deserializedList = deserializer.deserialize(parentStage, in);
-                } catch (InstantiationException | IllegalAccessException | IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
-                    new ShowMessage(parentStage, "There is some exceptions while deserialization.");
-                    deserializedList = null;
-                }
-                if (deserializedList != null) {
-                    ObservableList<ClassDescription> deserializedObservableList = FXCollections.observableArrayList();
-                    for (Object deserializedObject : deserializedList) {
-                        deserializedObservableList.add(new ClassDescription(deserializedObject));
-                    }
-                    objectListView.setItems(deserializedObservableList);
-                }
+                resultSerializer = serializerDescription.getSerializer().newInstance();
             }
         }
-        return deserializedList != null;
+        return resultSerializer;
     }
 
-    private boolean unpackingDataMethod(Stage parentStage, SerializeFileDescription fileDescription){
+    private ArchivePlugin getArchivePluginByFileDescription(SerializeFileDescription fileDescription) throws InstantiationException, IllegalAccessException {
         if (fileDescription.getArchiveExtension() == null){
-            return true;
+            return null;
         }
-        boolean isUnpackingDone = false;
+        ArchivePlugin resultArchivePlugin = null;
         for (PluginDescription pluginDescription : MainWindow.getPluginsList()) {
             if (pluginDescription.getArchiveExtension().contains(fileDescription.getArchiveExtension())) {
-                try(FileInputStream inputStream = new FileInputStream(fileDescription.getFileAbsolutePath());
-                    FileOutputStream outputStream = new FileOutputStream(fileDescription.getSerializeFilePath())
-                ) {
-                    ArchivePlugin archivePlugin = pluginDescription.getArchivePlugin().newInstance();
-                    archivePlugin.decompress(inputStream, outputStream);
-                    isUnpackingDone = true;
-                } catch (InstantiationException | IllegalAccessException | IOException e) {
-                    new ShowMessage(parentStage, "There is some exceptions while serialization.");
-                }
+                resultArchivePlugin = pluginDescription.getArchivePlugin().newInstance();
             }
         }
-        return isUnpackingDone;
+        return resultArchivePlugin;
     }
+
+
+    private void deserializeDataInputStream(Serializer deserializer, ListView<ClassDescription> objectListView, InputStream serializeInputStream) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+        ArrayList<Object>deserializedList = deserializer.deserialize(serializeInputStream);
+        ObservableList<ClassDescription> deserializedObservableList = FXCollections.observableArrayList();
+        for (Object deserializedObject : deserializedList) {
+            deserializedObservableList.add(new ClassDescription(deserializedObject));
+        }
+        objectListView.setItems(deserializedObservableList);
+    }
+
 }
