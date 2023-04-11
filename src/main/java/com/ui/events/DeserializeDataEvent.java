@@ -49,7 +49,7 @@ public class DeserializeDataEvent implements ButtonEvent {
                 }else {
                     new ShowMessage(parentStage, "There is some errors while deserialization.");
                 }
-            } catch (InstantiationException | IllegalAccessException | IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException e) {
+            } catch (InstantiationException | IllegalAccessException | IOException | ClassNotFoundException | InvocationTargetException | NoSuchMethodException | ArrayIndexOutOfBoundsException e) {
                 new ShowMessage(parentStage, "There is some exceptions while deserialization.");
             }
         }

@@ -20,7 +20,7 @@ public class XMLSerializer implements Serializer{
     }
 
     @Override
-    public ArrayList<Object> deserialize(InputStream inputStream) {
+    public ArrayList<Object> deserialize(InputStream inputStream) throws ArrayIndexOutOfBoundsException {
         Object deserializedObject;
         try (XMLDecoder xmlDecoder = new XMLDecoder(inputStream)) {
             deserializedObject = xmlDecoder.readObject();
