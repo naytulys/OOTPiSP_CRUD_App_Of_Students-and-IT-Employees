@@ -11,14 +11,14 @@ import java.util.ArrayList;
 public class BinarySerializer implements Serializer {
 
     @Override
-    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException {
+    public void serialize(ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException {
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
             objectOutputStream.writeObject(new ArrayList<>(objectListToWrite));
         }
     }
 
     @Override
-    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) throws IOException, ClassNotFoundException {
+    public ArrayList<Object> deserialize(InputStream inputStream) throws IOException, ClassNotFoundException {
         Object deserializedObject;
         try (ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)) {
             deserializedObject = objectInputStream.readObject();

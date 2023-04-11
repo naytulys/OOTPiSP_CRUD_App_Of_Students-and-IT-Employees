@@ -13,14 +13,14 @@ import java.util.ArrayList;
 @LocalizedName("XML Serializer")
 public class XMLSerializer implements Serializer{
     @Override
-    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) {
+    public void serialize(ArrayList<Object> objectListToWrite, OutputStream outputStream) {
         try (XMLEncoder xmlEncoder = new XMLEncoder(outputStream)){
             xmlEncoder.writeObject(objectListToWrite);
         }
     }
 
     @Override
-    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) {
+    public ArrayList<Object> deserialize(InputStream inputStream) {
         Object deserializedObject;
         try (XMLDecoder xmlDecoder = new XMLDecoder(inputStream)) {
             deserializedObject = xmlDecoder.readObject();
