@@ -22,7 +22,7 @@ public class TextSerializer implements Serializer {
     private final InnerClassesDependencyRestorer dependencyRestorer = new InnerClassesDependencyRestorer();
 
     @Override
-    public void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException {
+    public void serialize(ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException {
         try(OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream)) {
             for (Object object : objectListToWrite) {
                 outputStreamWriter.write(serializeObject(object, objectListToWrite));
@@ -49,7 +49,7 @@ public class TextSerializer implements Serializer {
     }
 
     @Override
-    public ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+    public ArrayList<Object> deserialize(InputStream inputStream) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
         this.dependencyRestorer.clear();
         ArrayList<Object> resultObjectList = new ArrayList<>();
         String line;

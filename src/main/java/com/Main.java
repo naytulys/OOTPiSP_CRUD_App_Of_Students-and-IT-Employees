@@ -8,11 +8,11 @@ import com.serializers.TextSerializer;
 import com.serializers.XMLSerializer;
 import com.ui.MainWindow;
 import com.utils.ClassDescription;
+import com.utils.PluginDescription;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {

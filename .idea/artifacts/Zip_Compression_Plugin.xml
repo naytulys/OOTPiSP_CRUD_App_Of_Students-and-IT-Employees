@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Zip-Compression-Plugin">
+    <output-path>$PROJECT_DIR$/out/artifacts/Zip_Compression_Plugin</output-path>
+    <root id="archive" name="Zip-Compression-Plugin.jar">
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/java/com/plugins/ArchivePlugin.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/java/com/plugins/plugin.config" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/java/com/plugins/ZIPArchivePlugin.java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/java/com/plugins/LocalizedName.java" />
+    </root>
+  </artifact>
+</component>

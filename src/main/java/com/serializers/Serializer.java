@@ -12,9 +12,9 @@ import java.util.ArrayList;
 @LocalizedName("Serializer interface")
 public interface Serializer {
 
-    void serialize(Stage parentStage, ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException;
+    void serialize(ArrayList<Object> objectListToWrite, OutputStream outputStream) throws IOException;
 
-    ArrayList<Object> deserialize(Stage parentStage, InputStream inputStream) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException;
+    ArrayList<Object> deserialize(InputStream inputStream) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException;
 
 
 }
