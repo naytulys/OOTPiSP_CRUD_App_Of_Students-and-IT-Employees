@@ -29,58 +29,61 @@ public class SerializeDataEvent implements ButtonEvent {
         if (saveDialogResult == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             SerializeFileDescription fileDescription = new SerializeFileDescription(selectedFile, Main.getSerializerList(), MainWindow.getPluginsList());
-            boolean isSerializationDone = serializeDataMethod(parentStage, fileDescription, objectListView);
-            if (isSerializationDone){
-                boolean isArchivingDone = archiveDataMethod(parentStage, fileDescription);
-                if (isArchivingDone){
-                    new ShowMessage(parentStage, "Data Serialization Done");
+            try {
+                Serializer serializer = getSerializerByFileDescription(fileDescription);
+                ArchivePlugin archivePlugin = getArchivePluginByFileDescription(fileDescription);
+                if (serializer != null){
+                    try(FileOutputStream outputStream = new FileOutputStream(fileDescription.getFileAbsolutePath())) {
+                        if (archivePlugin == null) {
+                            serializeDataOutputStream(serializer, objectListView, outputStream);
+                        } else {
+                            ByteArrayOutputStream bufferOutputStream = new ByteArrayOutputStream();
+                            serializeDataOutputStream(serializer, objectListView, bufferOutputStream);
+                            archivePlugin.compress(new ByteArrayInputStream(bufferOutputStream.toByteArray()), outputStream);
+                        }
+                        new ShowMessage(parentStage, "Data Serialization Done");
+                    }
+                }else {
+                    new ShowMessage(parentStage, "There is some errors while serialization.");
                 }
+            } catch (InstantiationException | IllegalAccessException | IOException e) {
+                new ShowMessage(parentStage, "There is some exceptions while serialization.");
             }
         }
     }
 
-    private boolean serializeDataMethod(Stage parentStage, SerializeFileDescription fileDescription, ListView<ClassDescription> objectListView){
+    private Serializer getSerializerByFileDescription(SerializeFileDescription fileDescription) throws InstantiationException, IllegalAccessException {
         if (fileDescription.getSerializeFileExtension() == null){
-            return false;
+            return null;
         }
-        boolean isSerializationDone = false;
+        Serializer resultSerializer = null;
         for (SerializerDescription serializerDescription : Main.getSerializerList()) {
             if (serializerDescription.getExtensionsToSerialize().contains(fileDescription.getSerializeFileExtension())) {
-                ArrayList<Object> listToSerialize = new ArrayList<>();
-                for (ClassDescription objectToSerialize : objectListView.getItems()) {
-                    listToSerialize.add(objectToSerialize.getObject_For_Description());
-                }
-                try(FileOutputStream outputStream = new FileOutputStream(fileDescription.getSerializeFilePath())
-                ) {
-                    Serializer serializer = serializerDescription.getSerializer().newInstance();
-                    serializer.serialize(parentStage, listToSerialize, outputStream);
-                    isSerializationDone = true;
-                } catch (InstantiationException | IllegalAccessException | IOException e) {
-                    new ShowMessage(parentStage, "There is some exceptions while serialization.");
-                }
+                resultSerializer = serializerDescription.getSerializer().newInstance();
             }
         }
-        return isSerializationDone;
+        return resultSerializer;
     }
 
-    private boolean archiveDataMethod(Stage parentStage, SerializeFileDescription fileDescription){
+    private ArchivePlugin getArchivePluginByFileDescription(SerializeFileDescription fileDescription) throws InstantiationException, IllegalAccessException {
         if (fileDescription.getArchiveExtension() == null){
-            return true;
+            return null;
         }
-        boolean isArchivingDone = false;
+        ArchivePlugin resultArchivePlugin = null;
         for (PluginDescription pluginDescription : MainWindow.getPluginsList()) {
             if (pluginDescription.getArchiveExtension().contains(fileDescription.getArchiveExtension())) {
-                try(FileInputStream inputStream = new FileInputStream(fileDescription.getSerializeFilePath());
-                    FileOutputStream outputStream = new FileOutputStream(fileDescription.getFileAbsolutePath())
-                ) {
-                    ArchivePlugin archivePlugin = pluginDescription.getArchivePlugin().newInstance();
-                    archivePlugin.compress(inputStream, outputStream);
-                    isArchivingDone = true;
-                } catch (InstantiationException | IllegalAccessException | IOException e) {
-                    new ShowMessage(parentStage, "There is some exceptions while serialization.");
-                }
+                resultArchivePlugin = pluginDescription.getArchivePlugin().newInstance();
             }
         }
-        return isArchivingDone;
+        return resultArchivePlugin;
+    }
+
+    private void serializeDataOutputStream(Serializer serializer, ListView<ClassDescription> objectListView, OutputStream serializeOutputStream) throws IOException {
+        ArrayList<Object> listToSerialize = new ArrayList<>();
+        for (ClassDescription objectToSerialize : objectListView.getItems()) {
+            listToSerialize.add(objectToSerialize.getObject_For_Description());
+        }
+        serializer.serialize(listToSerialize, serializeOutputStream);
     }
 }
+
