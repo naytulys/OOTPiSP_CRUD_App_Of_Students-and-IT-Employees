@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public abstract class SerializeEventsBaseClass {
 
-    public Serializer getSerializerByFileDescription(SerializeFileDescription fileDescription) throws InstantiationException, IllegalAccessException {
+    protected Serializer getSerializerByFileDescription(SerializeFileDescription fileDescription) throws InstantiationException, IllegalAccessException {
         if (fileDescription.getSerializeFileExtension() == null){
             return null;
         }
@@ -30,7 +30,7 @@ public abstract class SerializeEventsBaseClass {
         return resultSerializer;
     }
 
-    public ArchivePlugin getArchivePluginByFileDescription(SerializeFileDescription fileDescription) throws InstantiationException, IllegalAccessException {
+    protected ArchivePlugin getArchivePluginByFileDescription(SerializeFileDescription fileDescription) throws InstantiationException, IllegalAccessException {
         if (fileDescription.getArchiveExtension() == null){
             return null;
         }
@@ -43,7 +43,7 @@ public abstract class SerializeEventsBaseClass {
         return resultArchivePlugin;
     }
 
-    public void serializeDataOutputStream(Serializer serializer, ListView<ClassDescription> objectListView, OutputStream serializeOutputStream) throws IOException {
+    protected void serializeDataOutputStream(Serializer serializer, ListView<ClassDescription> objectListView, OutputStream serializeOutputStream) throws IOException {
         ArrayList<Object> listToSerialize = new ArrayList<>();
         for (ClassDescription objectToSerialize : objectListView.getItems()) {
             listToSerialize.add(objectToSerialize.getObject_For_Description());
@@ -51,7 +51,7 @@ public abstract class SerializeEventsBaseClass {
         serializer.serialize(listToSerialize, serializeOutputStream);
     }
 
-    public void deserializeDataInputStream(Serializer deserializer, ListView<ClassDescription> objectListView, InputStream serializeInputStream) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
+    protected void deserializeDataInputStream(Serializer deserializer, ListView<ClassDescription> objectListView, InputStream serializeInputStream) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, NoSuchMethodException, InstantiationException {
         ArrayList<Object>deserializedList = deserializer.deserialize(serializeInputStream);
         ObservableList<ClassDescription> deserializedObservableList = FXCollections.observableArrayList();
         for (Object deserializedObject : deserializedList) {
